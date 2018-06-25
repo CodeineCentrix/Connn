@@ -1,0 +1,329 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24 Feb 2018, 7:30:26 PM
+    Author     : Haich
+*/
+
+.content_holder{
+    background-color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+   overflow: hidden;
+   margin: 0;
+   padding: 0;
+}
+
+.land_page{
+    width: 100%;
+    max-height: 100% !important;
+    overflow: hidden;   
+}
+/*html {
+            width: 100% !important;
+            height: 100% !important;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            }*/
+            
+.fullscreen-bg  {
+                cursor: url('../Images/cursor.png'), auto;
+            }
+label{
+    font-family: 'Century Gothic';
+    color:black;
+}
+/*body{
+     width: 100% !important;
+     height: 100% !important;
+     overflow: hidden;
+}*/
+ul {
+   list-style-type: none;
+   font-family: 'Century Gothic';
+   font-size: 50px;
+   font-weight: 100;
+   margin: auto;
+    padding: 30px;
+    overflow: hidden;
+    width: 70%;
+    text-align: center;
+    padding-left: 1%;
+}
+.middlise{
+    margin: auto;
+    padding: 2px;
+    overflow: hidden;
+/*    width: 100%;*/
+/*    height: 100% !important;*/
+
+}
+
+.middliseV2{
+    margin: auto;   
+    overflow: hidden;
+    width: 100%;
+    height: 100% !important;
+    cursor: url('../Images/cursor.png'), auto; 
+}
+/*The drawable heart*/
+.middlise path,
+polyline {
+  stroke-dasharray: 392.1333312988281;
+  stroke-dashoffset: 392.1333312988281;
+  animation: dash 1.5s cubic-bezier(0.42, 0, 0.26, 0.99) forwards;
+  stroke: #000;
+  animation-name: dash;
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+#Layer_1{
+     margin: auto;
+    padding: 30px;
+    overflow: hidden;
+    width: 100%;
+/*    padding-left: 9%;*/
+}
+/*End drawable heart*/
+/*Background Videos*/
+.fullscreen-bg {
+    position: fixed;
+/*    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;*/
+width: 100% !important;
+height: 100% !important;
+    overflow: hidden;
+    z-index: -100;
+    margin: 0;
+   padding: 0;
+}
+.fullscreen-bg__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+@media (min-aspect-ratio: 16/9) {
+  .fullscreen-bg__video {
+    height: 300%;
+    top: -100%;
+  }
+}
+@media (max-aspect-ratio: 16/9) {
+  .fullscreen-bg__video {
+    width: 300%;
+    left: -100%;
+  }
+}
+/*End Background Video*/
+/*Login or Register*/
+.login_section a{
+    border-style: solid;
+    border-width: thin;
+    display: block;
+    width: 40%;
+    float: left;
+    text-align: center;
+    margin-right: 5%;
+    text-decoration: none;
+    border-color: blueviolet;
+    font-family: 'Century Gothic';
+    padding: 1%;
+}
+.login_section{
+    width: 50%;
+    height: 33%; 
+}
+.login_section a:hover{
+    background-color: lightcyan;
+}
+/*End Login or Register*/
+
+/* the tasty burger */
+.icon-menu {
+  z-index: 999;
+  position: absolute;
+  cursor: pointer;
+  top: 1em;
+  left: 1.2em;
+  width: 25px;
+  height: 25px;
+  transition: left .2s linear;
+}
+.icon-menu.clicked {
+  left: 2em;
+}
+.line {
+  transition: 0.4s;
+  stroke: black;
+  stroke-width: 25px;
+  stroke-linecap: round;
+  transform: rotate(0) translateY(0) translateX(0);
+}
+.line--1 {
+  
+  transform-origin: 30px 30px;
+  -webkit-transform-origin: left; 
+}
+.icon-menu:hover .line--1 {
+  transform-origin: 50% 50% 0;
+  transform: translateY(-15px);
+}
+.icon-menu.clicked:hover .line--1 {
+  
+transform: rotate(45deg) translateY(0) translateX(0);
+      transform-origin: 30px 30px;
+    -webkit-transform-origin: left;
+    -webkit-transform: rotate(45deg) translateY(0) translateX(0);
+    
+}
+.icon-menu:hover .line--3 {
+  transform-origin: 50% 50% 0;
+  transform: translateY(15px);
+}
+.icon-menu.clicked:hover .line--3 {
+  transform: rotate(-45deg) translateY(0) translateX(0);
+      transform-origin: 50% 50% 0;
+  -webkit-transform-origin: left;
+  -webkit-transform: rotate(-45deg) translateY(0) translateX(0);
+    
+ 
+}
+.line--3 {
+  transform-origin: 15px 140px;
+  -webkit-transform-origin: left;
+}
+.card {
+  background: #1ad1fc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  width: 6%;
+  height: 100%;
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  transform: translate(0%, 0%);
+  margin-top: 0;
+  padding-top: 0;
+  
+}
+
+.drawer {
+  z-index: 0;
+  background: #fff;
+  opacity: .1;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto;
+  width: 100%;
+  padding: 5px;
+  transition: all .5s linear;
+  height: 100%;
+  padding-top: 0;
+}
+
+
+.links {
+  text-align: center;
+  margin-top: 4em;
+}
+
+.link_con {
+  opacity: 0;
+  transform: translateX(-3.4em);
+  transition: all .5s ease-out;
+  margin-bottom: 1.5em;
+}
+
+
+div.link_con:nth-of-type(1) {
+  transition-delay: .05s;
+}
+
+div.link_con:nth-of-type(2) {
+  transition-delay: .1s;
+}
+
+div.link_con:nth-of-type(3) {
+  transition-delay: .15s;
+}
+
+div.link_con:nth-of-type(4) {
+  transition-delay: .2s;
+}
+
+.icon.fa {
+  transition: all .2s ease-in;
+  cursor: pointer;
+  color: #333;
+}
+
+.icon.fa:hover {
+  color: #1ad1fc;
+}
+
+.para {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size:  10px;
+  font-weight: 700;
+  color:  #1ad1fc;
+  transition: all .2s ease-out;
+  opacity: 0;
+  transform: translateY(1em);
+  margin: 0;
+  margin-top: 3px;
+  letter-spacing: .2px;
+  cursor: default;
+}
+
+.icon:HOVER + .para {
+  opacity:  1;
+  transform: translateY(0);
+}
+
+/*.menu {
+  color: #fff;
+  z-index: 999;
+  position: absolute;
+  cursor: pointer;
+  top: 1em;
+  left: 1.3em;
+  transition: all .5s linear;
+}
+
+.menu.clicked {
+  color: #1ad1fc;
+  left: 2em;
+}*/
+
+.drawer.clicked {
+  opacity: 1;
+  width: 100%;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.45);
+}
+
+.link_con.clicked {
+  opacity: 1;
+  transform: translateX(0);
+}
+/*End Menu tray*/
+/*Hamburger curtosy of effico https://codepen.io/efficio/pen/vGJbNO */
+
