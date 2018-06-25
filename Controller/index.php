@@ -27,9 +27,9 @@ $data = new admin_model();
 switch($action) {
     
             case 'show_home':
-		//$date_range = $data->get_event_date();
-                //$activities =$data->get_current_activities();
-               // $tickets = $data->get_tickets();               
+		$date_range = $data->get_event_date();
+               $activities =$data->get_current_activities();
+               $tickets = $data->get_tickets();               
 		$sponsors = $data->get_sponsors();
 		$vendors = $data->get_vendors();
 		$picture = $data->get_picture();//Dont understand this line
