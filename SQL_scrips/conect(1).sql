@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 25, 2018 at 06:43 PM
+-- Generation Time: Jun 25, 2018 at 07:35 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -23,6 +23,197 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `conect` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `conect`;
+
+DELIMITER $$
+--
+-- Procedures
+--
+DROP PROCEDURE IF EXISTS `upsGetEvent`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `upsGetEvent` ()  NO SQL
+SELECT * FROM `event`$$
+
+DROP PROCEDURE IF EXISTS `upsGetPicture`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `upsGetPicture` ()  NO SQL
+SELECT *
+FROM pictures$$
+
+DROP PROCEDURE IF EXISTS `uspAddActivity`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspAddActivity` (IN `eveID` INT, IN `actTitle` TEXT, IN `actDesc` TEXT)  NO SQL
+INSERT INTO activity (EveID, Title, Descr)
+VALUES(eveID,actTitle,actDesc)$$
+
+DROP PROCEDURE IF EXISTS `uspAddEvent`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspAddEvent` (IN `eveName` VARCHAR(100), IN `eveStartDate` DATE, IN `eveAddress` TEXT, IN `eveDescription` TEXT, IN `eveEndDate` DATE, IN `ticOnePrice` DOUBLE, IN `ticTwoPrice` DOUBLE, IN `ticDesc` TEXT)  NO SQL
+BEGIN
+INSERT INTO event(`EveName`, `EveStartDate`, `EveAddress`, `EveDescription`, `EveEndDate`) 
+VALUES (eveName,eveStartDate,eveAddress,eveDescription,eveEndDate);
+
+INSERT INTO ticket(`TicPriceNormalPass`,`TicPriceWeekendPass`, `TicDescription`, `EveID`) 
+VALUES (ticOnePrice, ticTwoPrice,ticDesc,
+        (SELECT LAST_INSERT_ID() ));
+END$$
+
+DROP PROCEDURE IF EXISTS `uspAddPicture`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspAddPicture` (IN `galPic` LONGBLOB, IN `galDate` YEAR(4), IN `galDescription` VARCHAR(100))  NO SQL
+INSERT INTO gallery (GalPic,GalDate,GalDescrip,gallery.GalTime)
+VALUES (galPic,galDate,galDescription,CURRENT_TIME)$$
+
+DROP PROCEDURE IF EXISTS `uspAddSponsor`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspAddSponsor` (IN `spoName` VARCHAR(100), IN `spoWebsite` VARCHAR(100), IN `spoPicture` LONGBLOB)  NO SQL
+INSERT INTO `sponsor`(`SpoName`, `SpoWebsite`, `SpoPicture`) 
+VALUES (spoName,spoWebsite,spoPicture)$$
+
+DROP PROCEDURE IF EXISTS `uspAddVendors`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspAddVendors` (IN `venName` VARCHAR(50), IN `venDescription` TEXT, IN `venFacebook` VARCHAR(500), IN `venTwitter` VARCHAR(500), IN `venInstagram` VARCHAR(500), IN `venWebsite` VARCHAR(500), IN `venPicture` LONGBLOB)  INSERT INTO vendor (VenName, VenDescription, VenFacebook, VenTwitter, VenInstagram, VenWebsite,vendor.VenPicture)
+VALUES (venName, venDescription, venFacebook, venTwitter, venInstagram, venWebsite,venPicture)$$
+
+DROP PROCEDURE IF EXISTS `uspAllEvents`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspAllEvents` ()  NO SQL
+SELECT *
+FROM event$$
+
+DROP PROCEDURE IF EXISTS `uspCurrentActivities`$$
+CREATE DEFINER=``@`%` PROCEDURE `uspCurrentActivities` ()  NO SQL
+SELECT * 
+FROM activity
+WHERE EveID = (SELECT EveID 
+FROM event
+GROUP BY EveID
+HAVING MAX(EveStartDate) = MAX(EveStartDate))$$
+
+DROP PROCEDURE IF EXISTS `uspDetermineEvent`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspDetermineEvent` ()  NO SQL
+SELECT EveID 
+FROM event
+GROUP BY EveID
+HAVING MAX(EveStartDate) = MAX(EveStartDate)$$
+
+DROP PROCEDURE IF EXISTS `uspEditActivity`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspEditActivity` (IN `eveID` INT, IN `actTitle` TEXT, IN `actDesc` TEXT, IN `eveactID` INT)  NO SQL
+UPDATE activity
+SET EveID = eveID, Title =actTitle, Descr = actDesc
+WHERE EveActID = eveactID$$
+
+DROP PROCEDURE IF EXISTS `uspEditEvent`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspEditEvent` (IN `eveID` INT, IN `eveName` VARCHAR(100), IN `eveStartDate` DATE, IN `eveAddress` TEXT, IN `eveDescription` TEXT, IN `eveEndDate` DATE, IN `ticOnePrice` DOUBLE, IN `ticTwoPrice` DOUBLE, IN `ticDesc` TEXT)  NO SQL
+BEGIN
+UPDATE`event`SET`EveName`=eveName,`EveStartDate`=eveStartDate,`EveAddress`=eveAddress,`EveDescription`=eveDescription,`EveEndDate`=eveEndDate WHERE `EveID`=eveID;
+
+UPDATE `ticket` SET TicPriceNormalPass=ticOnePrice,TicPriceWeekendPass=ticTwoPrice,
+`TicDescription`=ticDesc
+WHERE `EveID`=eveID ;
+END$$
+
+DROP PROCEDURE IF EXISTS `uspEditSponsor`$$
+CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspEditSponsor` (IN `spoid` INT, IN `spoName` VARCHAR(100), IN `spoWebsite` VARCHAR(500), IN `spoPic` LONGBLOB)  NO SQL
+UPDATE sponsor
+SET SpoName = spoName , SpoWebsite = spoWebsite , SpoPicture = spoPic
+WHERE sponsor.SpoID = spoid$$
+
+DROP PROCEDURE IF EXISTS `uspEvent`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspEvent` (IN `eveID` INT)  NO SQL
+SELECT DISTINCT event.* ,  ticket.TicPriceWeekendPass, ticket.TicPriceNormalPass, ticket.TicDescription
+FROM event, ticket
+WHERE EveID = eveID AND event.EveID = ticket.EveID$$
+
+DROP PROCEDURE IF EXISTS `uspGetActivities`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetActivities` ()  NO SQL
+SELECT * 
+FROM activity$$
+
+DROP PROCEDURE IF EXISTS `uspGetBusiness`$$
+CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspGetBusiness` ()  NO SQL
+SELECT * FROM business$$
+
+DROP PROCEDURE IF EXISTS `uspGetDateRange`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetDateRange` ()  NO SQL
+SELECT *
+FROM event
+WHERE YEAR(eveStartDate) = YEAR(CURDATE())$$
+
+DROP PROCEDURE IF EXISTS `uspGetEvent`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetEvent` ()  SELECT * FROM `event`$$
+
+DROP PROCEDURE IF EXISTS `uspGetEventTickets`$$
+CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspGetEventTickets` ()  NO SQL
+SELECT * 
+FROM event_ticket$$
+
+DROP PROCEDURE IF EXISTS `uspGetGalYears`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetGalYears` ()  NO SQL
+SELECT gallery.GalDate AS 'Year', COUNT(GalDate) AS 'NumOfPics'
+FROM gallery
+GROUP BY gallery.GalDate$$
+
+DROP PROCEDURE IF EXISTS `uspGetPicture`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetPicture` ()  SELECT *
+FROM pictures$$
+
+DROP PROCEDURE IF EXISTS `uspGetSponsors`$$
+CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspGetSponsors` ()  NO SQL
+SELECT *
+FROM sponsor
+WHERE OCTET_LENGTH(sponsor.SpoPicture) > 5$$
+
+DROP PROCEDURE IF EXISTS `uspGetTicket`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetTicket` ()  SELECT *
+FROM ticket$$
+
+DROP PROCEDURE IF EXISTS `uspGetVendorByID`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetVendorByID` (IN `venID` INT)  NO SQL
+SELECT * 
+FROM `vendor` 
+WHERE vendor.VenID = venID$$
+
+DROP PROCEDURE IF EXISTS `uspGetVendors`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetVendors` ()  SELECT * FROM vendor
+WHERE vendor.VenName IS NOT NULL
+ORDER BY vendor.VenName$$
+
+DROP PROCEDURE IF EXISTS `uspGetYearPics`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetYearPics` (IN `galYear` YEAR(4))  NO SQL
+SELECT *
+FROM gallery
+WHERE gallery.GalDate = galYear$$
+
+DROP PROCEDURE IF EXISTS `uspSponsor`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspSponsor` (IN `spo_ID` INT)  NO SQL
+SELECT * 
+FROM sponsor
+WHERE sponsor.SpoID = spo_ID$$
+
+DROP PROCEDURE IF EXISTS `uspUpdateBusiness`$$
+CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspUpdateBusiness` (IN `busName` VARCHAR(50), IN `busLogo` VARCHAR(100), IN `busSlogan` VARCHAR(100), IN `busAddressID` INT, IN `busAboutUs` TEXT, IN `busDateFound` DATE)  BEGIN
+
+UPDATE business
+SET BusName = busName ,BusLogo = busLogo , BusSlogan = busSlogan,
+ BusAddressID  = busAddressID, BusAboutUs = busAboutUs, BusDateFound = busDateFound;
+ 
+END$$
+
+DROP PROCEDURE IF EXISTS `uspUpdateSponsors`$$
+CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspUpdateSponsors` (IN `spoName` VARCHAR(100), IN `spoWebsite` VARCHAR(100), IN `spoPic` INT, IN `spoID` INT)  NO SQL
+UPDATE sponsor
+SET SpoName = spoName , SpoWebsite = spoWebsite , SpoPicture = spoPic
+WHERE SpoID = spoID$$
+
+DROP PROCEDURE IF EXISTS `uspUpdateVendor`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspUpdateVendor` (IN `venID` INT(20), IN `venName` VARCHAR(100), IN `venDescription` TEXT, IN `venFacebook` VARCHAR(500), IN `venTwitter` VARCHAR(500), IN `venInstagram` VARCHAR(500), IN `venWebsite` VARCHAR(500), IN `venPicture` LONGBLOB)  UPDATE vendor
+SET VenName = venName, VenDescription = venDescription, VenFacebook = venFacebook, VenTwitter = venTwitter, VenInstagram = venInstagram, VenWebsite = venWebsite, VenPicture = venPicture
+WHERE vendor.VenID = venID$$
+
+DROP PROCEDURE IF EXISTS `uspUpdateVendorNoPic`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspUpdateVendorNoPic` (IN `venID` INT(20), IN `venName` VARCHAR(100), IN `venDescription` TEXT, IN `venFacebook` VARCHAR(500), IN `venTwitter` VARCHAR(500), IN `venInstagram` VARCHAR(500), IN `venWebsite` VARCHAR(500))  UPDATE vendor
+SET VenName = venName, VenDescription = venDescription, VenFacebook = venFacebook, VenTwitter = venTwitter, VenInstagram = venInstagram, VenWebsite = venWebsite
+WHERE vendor.VenID = venID$$
+
+DROP PROCEDURE IF EXISTS `uspUpdateVendorPicture`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspUpdateVendorPicture` (IN `spoID` INT(10), IN `spoPic` LONGBLOB)  NO SQL
+UPDATE sponsor
+SET sponsor.SpoPicture = spoPic
+WHERE sponsor.SpoID = spoID$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
