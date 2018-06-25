@@ -24,13 +24,6 @@ and open the template in the editor.
     max-height: 100% !important;
     overflow: hidden;   
 }
-/*html {
-            width: 100% !important;
-            height: 100% !important;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-            }*/
             
 .fullscreen-bg  {
                 cursor: url('../Images/cursor.png'), auto;
@@ -72,32 +65,6 @@ ul {
     height: 100% !important;
     cursor: url('../Images/cursor.png'), auto; 
 }
-/*The drawable heart*/
-.middlise path,
-polyline {
-  stroke-dasharray: 392.1333312988281;
-  stroke-dashoffset: 392.1333312988281;
-  animation: dash 1.5s cubic-bezier(0.42, 0, 0.26, 0.99) forwards;
-  stroke: #000;
-  animation-name: dash;
-  animation-duration: 5s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-}
-
-@keyframes dash {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-#Layer_1{
-     margin: auto;
-    padding: 30px;
-    overflow: hidden;
-    width: 100%;
-/*    padding-left: 9%;*/
-}
-/*End drawable heart*/
 /*Background Videos*/
 .fullscreen-bg {
     position: fixed;
@@ -299,20 +266,6 @@ div.link_con:nth-of-type(4) {
   transform: translateY(0);
 }
 
-/*.menu {
-  color: #fff;
-  z-index: 999;
-  position: absolute;
-  cursor: pointer;
-  top: 1em;
-  left: 1.3em;
-  transition: all .5s linear;
-}
-
-.menu.clicked {
-  color: #1ad1fc;
-  left: 2em;
-}*/
 
 .drawer.clicked {
   opacity: 1;
