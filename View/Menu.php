@@ -14,31 +14,37 @@
     <div class="links">
        
       <div class="link_con">
-          <i class="icon fa"><a href="../Controller/MainController.php?action=login_page"><img src="https://png.icons8.com/ios/50/000000/login-rounded-right-filled.png"></a></i>
+          <i class="icon fa"><a href="."><img src="https://png.icons8.com/ios/50/000000/login-rounded-right-filled.png"></a></i>
         <p class="para">LOGIN</p>
       </div>
        <div class="link_con">
-           <i class="icon fa "><a href="../Controller/MainController.php?action=view_readings"><img src="https://png.icons8.com/ios/50/000000/to-do-filled.png"></a></i>
+           <i class="icon fa "><a href="#link_act"><img src="https://png.icons8.com/ios/50/000000/to-do-filled.png"></a></i>
         <p class="para">ACTIVITIES</p>
       </div>
         
+        <div class="link_con">
+           <i class="icon fa "><a href="#link_map_tickets"><img src="https://png.icons8.com/android/50/000000/marker.png"></a></i>
+        <p class="para">MAPS & TICKETS</p>
+      </div>
+        
+            
        <div class="link_con">
-           <i class="icon fa "><a href="../Controller/MainController.php?action="><img src="https://png.icons8.com/ios/50/000000/market-square.png"></a></i>
+           <i class="icon fa "><a href="#link_vendors"><img src="https://png.icons8.com/ios/50/000000/market-square.png"></a></i>
         <p class="para">VENDOR</p>
       </div>
        
        <div class="link_con">
-           <i class="icon fa "><a href="../Controller/MainController.php?action=area_stats"><img src="https://png.icons8.com/ios/50/000000/crowdfunding-filled.png"></a></i>
+           <i class="icon fa "><a href="#link_sponsors"><img src="https://png.icons8.com/ios/50/000000/crowdfunding-filled.png"></a></i>
         <p class="para">SPONSORS</p>
       </div>
        
         <div class="link_con">
-           <i class="icon fa "><a href="../Controller/MainController.php?action=area_stats"><img src="https://png.icons8.com/ios/50/000000/picture-filled.png"></a></i>
+           <i class="icon fa "><a href="."><img src="https://png.icons8.com/ios/50/000000/picture-filled.png"></a></i>
         <p class="para">GALLERY</p>
       </div>
         
         <div class="link_con">
-           <i class="icon fa "><a href="../Controller/MainController.php?action=area_stats"><img src="https://png.icons8.com/ios/50/000000/about-filled.png"></a></i>
+           <i class="icon fa "><a href="."><img src="https://png.icons8.com/ios/50/000000/about-filled.png"></a></i>
         <p class="para">ABOUT US</p>
       </div>
         

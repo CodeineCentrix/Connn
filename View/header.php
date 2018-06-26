@@ -10,7 +10,7 @@
         </a>  
     </div>
     <div class="header_info_middle">
-        <h1>Port Elizabeth Geek Convention</h1>
+        <h1 class="black_text align_center_text">Port Elizabeth Geek Convention</h1>
     </div>
     <div class="header_info_right">
         <div class="button_holder"> <input type="button" value="Admin Login"></div>

@@ -21,20 +21,21 @@ and open the template in the editor.
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
     
     </head>
     <body>
         <div class="land_page">
         <div><?php include '../View/header.php'; ?></div>
        <div class="fullscreen-bg">
-           <img src="../pics/kids_play.jpg" alt="CrosPlay Costumes" class="fullscreen-bg-gif">
+           <img src="../pics/kids_play.jpg" alt="CosPlay Costumes" class="fullscreen-bg-gif">
         </div>
         <?php 
         $milisec_begin = "1527804000";
         $start_date_obj = date_create($date_range["EveStartDate"]);
         $end_date_obj = date_create($date_range["EveEndDate"]);        
         ?>       
-        <h1 style="color: white; text-align: center;">From the <?php echo date_format($start_date_obj, "dS F");?> till <?php echo date_format($end_date_obj, "dS F Y") ;?></h1>
+        <h1 class="white_text align_center_text">From the <?php echo date_format($start_date_obj, "dS F");?> till <?php echo date_format($end_date_obj, "dS F Y") ;?></h1>
         
         <div class="time-holder">
       <!--First PHP Tags come here.-->      
@@ -111,55 +112,55 @@ and open the template in the editor.
         
         <div class="content_holder">
             
-        <div class="new_adds">
-            <h1 class="company_font section_two">What's new for <?php echo date_format($end_date_obj, "Y") ;?></h1>
+        <div class="new_adds"id="link_act">
+            <h1 class="company_font black_text align_center_text">What's new for <?php echo date_format($end_date_obj, "Y") ;?></h1>
             <div class="new-stuff-content">
-               <?php if(isset($activities)==NULL): ?>
+               <?php if(isset($activities)!=NULL): ?>
                 <div>
                     <?php foreach ($activities as $activity):?>
-                    <h2><?php echo $activity["Title"]; ?></h2>
-                    <p>
+                    <h2 class=" black_text align_left_text"><?php echo $activity["Title"]; ?></h2>
+                    <p class="paragraph_text align_left_text">
                         <?php echo $activity["Descr"]; ?>
                     </p><br><br>
                     <?php endforeach;?>
                 </div>
                <?php else: ?> 
-                <p class=""> Unfortunately...Nothing for now, but watch this space.</p>
+                <p class="paragraph_text align_left_text"> Unfortunately...Nothing for now, but watch this space.</p>
                 <?php endif;?>
             </div>
         </div>
             
             <div class="get_start_holder">
-            <div class="get_start_content">
-                <h1 class="company_font section_two">Getting started</h1>
+                <div class="get_start_content"id="link_map_tickets">
+                <h1 class="company_font black_text align_center_text">Getting started</h1>
                 
-                <h3 class="company_font normal_text section_two">Find the venue and get your ticket </h3>
+                <h3 class="company_font black_text align_center_text">Find the venue and get your ticket </h3>
                 <div class="map_ticket_holder">
                     
                    <div class="map_holder">
                     <div class="map_balancer">
-                       <h3>Venue information</h3>
+                        <h3 class="black_text align_center_text">Venue information</h3>
                 <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBQk0d2TXWcrEPgbSK2wsdcwBpzkT6iGYg&q=<?php echo $address["EveAddress"]; ?>" frameborder="0" style="border:0" allowfullscreen></iframe>
                     </div>
                     </div>
                 <div class="ticket_holder">
-                <h3>Ticket information</h3>
-                <h4 class="ticket_headings">WHERE:</h4>
-                <p><?php echo $tickets["TicDescription"];?><p>
-                <h4 class="ticket_headings">Prices:</h4>
-                <p>Weekend Pass:&nbsp;&nbsp;R<?php echo $tickets['TicPriceWeekendPass'];?></p>
-                <p>Daily Pass:&nbsp;&nbsp;R<?php echo $tickets['TicPriceNormalPass'];?><p>
+                    <h3 class="black_text align_center_text">Ticket information</h3>
+                <h4 class="black_text align_center_text">WHERE:</h4>
+                <p class="paragraph_text align_center_text"><?php echo $tickets["TicDescription"];?><p>
+                <h4 class="black_text align_center_text">Prices:</h4>
+                <p class="black_text align_center_text">Weekend Pass:&nbsp;&nbsp;R<?php echo $tickets['TicPriceWeekendPass'];?></p>
+                <p class="black_text align_center_text">Daily Pass:&nbsp;&nbsp;R<?php echo $tickets['TicPriceNormalPass'];?><p>
                 </div>
                 </div>
             </div>
         </div> 
             
-        <div class="stakeholder">            
-            <h1 class="company_font">Our Vendors</h1>           
+            <div class="stakeholder" id="link_vendors">            
+            <h1 class="company_font black_text align_center_text">Our Vendors</h1>           
             <div class="vendors_holder">
                 <?php if(isset($vendors)!=NULL):?>
               <?php foreach ($vendors as $vendor): ?>  
-            <div class="card">
+            <div class="card_a">
                 <?php if($vendor["VenPicture"]==NULL):?>
                 <img src="../pics/Image-not-found.jpg" alt="<?php echo $vendor['VenName']; ?>" style="width:100%">
                 <?php else:?>
@@ -186,7 +187,7 @@ and open the template in the editor.
         </div>             
         </div>
            
-            <div class="sponsors_holder">
+            <div class="sponsors_holder" id="link_sponsors">
             <h1 class='company_font'>Gratitude to our sponsors</h1>
             <br>
             <?php ?>
@@ -199,7 +200,7 @@ and open the template in the editor.
               echo $fQIMG;
                 ?>" alt="<?php echo $sponsor["SpoName"]; ?>" style="width: 200px; height: 200px; border-radius: 250px;" />   
                 
-                <a href="<?php echo $sponsor["SpoWebsite"] ; ?>"><p class="title" style="color:white; font-family:'New Drop Era'"><?php echo $sponsor["SpoName"]; ?></p></a>
+                <a href="<?php echo $sponsor["SpoWebsite"] ; ?>"><p class="title black_text"><?php echo $sponsor["SpoName"]; ?></p></a>
             </div>
             <?php endforeach; ?>
         </div>

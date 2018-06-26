@@ -63,7 +63,7 @@ public function edit_vendor($ven_ID, $venName, $venDescription, $venFacebook, $v
 
 /*Region sponsors*/  
     public function get_sponsors() {
-        $stored_procedure ="CALL uspGetSponsors";
+        $stored_procedure ="CALL uspGetSponsors()";
         return DBHelper::GetAll($stored_procedure);  
     }
     
@@ -238,7 +238,7 @@ public function edit_vendor($ven_ID, $venName, $venDescription, $venFacebook, $v
 	}
         
         public function get_event_address() {
-           $stored_procedure=" uspEventAddress()";
+           $stored_procedure="CALL uspEventAddress()";
            return DBHelper::GetRow($stored_procedure);
         }
 }

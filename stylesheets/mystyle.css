@@ -31,11 +31,30 @@ height: 100% !important;
     height: 100%;
 }
 
-.company_font{
-    font-family: 'Quicksand', sans-serif;
-    text-align: center;
+.company_font{  
     font-size: 68px ;
-    color: white;
+}
+
+.white_text{
+   font-family: 'Quicksand', sans-serif;
+   color: white;
+}
+
+.black_text{
+  font-family: 'Quicksand', sans-serif;
+   color: black;  
+}
+
+.align_center_text{
+    text-align: center;
+}
+
+.align_left_text{
+    text-align: left;
+}
+.paragraph_text{
+    font-family: 'Abel', sans-serif;
+    color: black;
 }
 /*Clock section*/
 
@@ -48,7 +67,7 @@ height: 100% !important;
    
 }
 .countdown-container {
-font-family: 'New Drop Era';
+font-family: 'Century Gothic';
 }
 .clock-item .inner {
 height: 0px;
@@ -397,12 +416,6 @@ body {
     overflow: hidden;
 }
 
-.get_start_content p{
-    color: white;
-    font-family: 'Century Gothic';
-    font-size: 20px;
-    text-align: center;
-}
 
 .stakeholder{
     background-color: white;
@@ -423,7 +436,7 @@ body {
     background-color: white;
     
 }
-.sponsors_holder .card {
+.card_a {
     background-color: white;
     float: left;
     margin-right: 20px;
@@ -478,12 +491,4 @@ button:hover, a:hover {
     overflow:hidden;
     text-align: center;
     
-}
-
-.ticket_headings{
-    text-align: center;
-    color: black;
-    font-family: "Century Gothic";
-    margin-bottom: 15px;
-    margin-top: 15px;
 }
