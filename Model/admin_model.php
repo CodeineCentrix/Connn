@@ -236,4 +236,9 @@ public function edit_vendor($ven_ID, $venName, $venDescription, $venFacebook, $v
 		 $stored_procedure = "CALL uspGetPicture()";
       return DBHelper::GetRow($stored_procedure);
 	}
+        
+        public function get_event_address() {
+           $stored_procedure=" uspEventAddress()";
+           return DBHelper::GetRow($stored_procedure);
+        }
 }

@@ -376,7 +376,7 @@ body {
 }
 
 .map_holder{
-    width: 65%;
+    width: 55%;
     float: left;
     overflow: hidden;
      border-right-style: solid;
@@ -405,20 +405,25 @@ body {
 }
 
 .stakeholder{
-    background-color: #3300FF;
+    background-color: white;
     color: black;
-    font-family: 'Century Gothic';
     overflow: hidden;
+    border-top-style: solid;
+    border-top-color: rgb(216,216,216);
 }
 
 .vendors_holder{
+    color: black;
     width: 80%;
     padding: 10px;
     margin: auto;
     overflow: hidden;
+    border-top-style: solid;
+    border-top-color: rgb(216,216,216);
+    background-color: white;
     
 }
-.card {
+.sponsors_holder .card {
     background-color: white;
     float: left;
     margin-right: 20px;
@@ -469,9 +474,10 @@ button:hover, a:hover {
 .sponsors_holder{
     width: 100%;
     margin: 0;
-    background: #1E90FF;
+    background: white;
     overflow:hidden;
     text-align: center;
+    
 }
 
 .ticket_headings{

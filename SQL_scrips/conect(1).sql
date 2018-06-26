@@ -28,6 +28,14 @@ DELIMITER $$
 --
 -- Procedures
 --
+
+DROP PROCEDURE IF EXISTS `uspEventAddress`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspEventAddress`() NO SQL  
+SELECT EveAddress  
+FROM event
+GROUP BY EveAddress
+HAVING MAX(EveStartDate) = MAX(EveStartDate)$$
+
 DROP PROCEDURE IF EXISTS `upsGetEvent`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `upsGetEvent` ()  NO SQL
 SELECT * FROM `event`$$
