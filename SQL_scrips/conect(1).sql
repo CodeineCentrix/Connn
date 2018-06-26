@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 25, 2018 at 07:35 PM
+-- Generation Time: Jun 26, 2018 at 04:09 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -28,14 +28,6 @@ DELIMITER $$
 --
 -- Procedures
 --
-
-DROP PROCEDURE IF EXISTS `uspEventAddress`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `uspEventAddress`() NO SQL  
-SELECT EveAddress  
-FROM event
-GROUP BY EveAddress
-HAVING MAX(EveStartDate) = MAX(EveStartDate)$$
-
 DROP PROCEDURE IF EXISTS `upsGetEvent`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `upsGetEvent` ()  NO SQL
 SELECT * FROM `event`$$
@@ -81,20 +73,13 @@ SELECT *
 FROM event$$
 
 DROP PROCEDURE IF EXISTS `uspCurrentActivities`$$
-CREATE DEFINER=``@`%` PROCEDURE `uspCurrentActivities` ()  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspCurrentActivities` ()  NO SQL
 SELECT * 
 FROM activity
 WHERE EveID = (SELECT EveID 
 FROM event
 GROUP BY EveID
 HAVING MAX(EveStartDate) = MAX(EveStartDate))$$
-
-DROP PROCEDURE IF EXISTS `uspDetermineEvent`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `uspDetermineEvent` ()  NO SQL
-SELECT EveID 
-FROM event
-GROUP BY EveID
-HAVING MAX(EveStartDate) = MAX(EveStartDate)$$
 
 DROP PROCEDURE IF EXISTS `uspEditActivity`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspEditActivity` (IN `eveID` INT, IN `actTitle` TEXT, IN `actDesc` TEXT, IN `eveactID` INT)  NO SQL
@@ -124,6 +109,13 @@ SELECT DISTINCT event.* ,  ticket.TicPriceWeekendPass, ticket.TicPriceNormalPass
 FROM event, ticket
 WHERE EveID = eveID AND event.EveID = ticket.EveID$$
 
+DROP PROCEDURE IF EXISTS `uspEventAddress`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspEventAddress` ()  NO SQL
+SELECT EveAddress  
+FROM event
+GROUP BY EveAddress
+HAVING MAX(EveStartDate) = MAX(EveStartDate)$$
+
 DROP PROCEDURE IF EXISTS `uspGetActivities`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetActivities` ()  NO SQL
 SELECT * 
@@ -143,7 +135,7 @@ DROP PROCEDURE IF EXISTS `uspGetEvent`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetEvent` ()  SELECT * FROM `event`$$
 
 DROP PROCEDURE IF EXISTS `uspGetEventTickets`$$
-CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspGetEventTickets` ()  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetEventTickets` ()  NO SQL
 SELECT * 
 FROM event_ticket$$
 
@@ -158,14 +150,19 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetPicture` ()  SELECT *
 FROM pictures$$
 
 DROP PROCEDURE IF EXISTS `uspGetSponsors`$$
-CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspGetSponsors` ()  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetSponsors` ()  NO SQL
 SELECT *
 FROM sponsor
 WHERE OCTET_LENGTH(sponsor.SpoPicture) > 5$$
 
 DROP PROCEDURE IF EXISTS `uspGetTicket`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetTicket` ()  SELECT *
-FROM ticket$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetTicket` ()  SELECT TicDescription , TicPriceNormalPass, TicPriceWeekendPass
+FROM ticket
+WHERE EveID = (
+SELECT EveID 
+FROM event
+GROUP BY EveID
+HAVING MAX(EveStartDate) = MAX(EveStartDate))$$
 
 DROP PROCEDURE IF EXISTS `uspGetVendorByID`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetVendorByID` (IN `venID` INT)  NO SQL
@@ -189,6 +186,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `uspSponsor` (IN `spo_ID` INT)  NO S
 SELECT * 
 FROM sponsor
 WHERE sponsor.SpoID = spo_ID$$
+
+DROP PROCEDURE IF EXISTS `uspTest`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspTest` ()  NO SQL
+SELECT EveID, MAX(EveStartDate) 
+FROM event
+GROUP BY EveID
+HAVING MAX(EveStartDate) = MAX(EveStartDate)$$
 
 DROP PROCEDURE IF EXISTS `uspUpdateBusiness`$$
 CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspUpdateBusiness` (IN `busName` VARCHAR(50), IN `busLogo` VARCHAR(100), IN `busSlogan` VARCHAR(100), IN `busAddressID` INT, IN `busAboutUs` TEXT, IN `busDateFound` DATE)  BEGIN
@@ -236,7 +240,14 @@ CREATE TABLE IF NOT EXISTS `activity` (
   `Title` text NOT NULL,
   `Descr` text NOT NULL,
   UNIQUE KEY `EveActID` (`EveActID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `activity`
+--
+
+INSERT INTO `activity` (`EveID`, `EveActID`, `Title`, `Descr`) VALUES
+(8, 2, 'Bayworld Entertainment', 'Part of their \"giving back to the block campaign\" Bayworld will be supplying us with their fanciest material and handy craftmanship. \r\n\r\nThey promised to offer everyone free entrance tickets and also they promised to bring to the venue a full ancient set of Dinasours remains. ');
 
 -- --------------------------------------------------------
 
@@ -272,7 +283,14 @@ CREATE TABLE IF NOT EXISTS `event` (
   `EveDescription` text,
   `EveEndDate` date NOT NULL,
   PRIMARY KEY (`EveID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `event`
+--
+
+INSERT INTO `event` (`EveID`, `EveName`, `EveStartDate`, `EveAddress`, `EveDescription`, `EveEndDate`) VALUES
+(8, 'GEEK1803', '2018-08-23', '340 Rose-Etta Street, Pretoria West, Pretoria, South Africa', 'Kuzoba Fire and kuzoba lit!!!            \r\n        ', '2018-08-25');
 
 -- --------------------------------------------------------
 
@@ -349,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `sponsor` (
   PRIMARY KEY (`SpoID`),
   UNIQUE KEY `SpoWebsite` (`SpoWebsite`),
   KEY `SpoID` (`SpoID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -367,7 +385,14 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   `TicPriceSpecialPass` double DEFAULT NULL,
   `EveID` int(11) DEFAULT NULL,
   PRIMARY KEY (`TicID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ticket`
+--
+
+INSERT INTO `ticket` (`TicID`, `TicPriceWeekendPass`, `TicDescription`, `TicType`, `TicPriceNormalPass`, `TicPriceSpecialPass`, `EveID`) VALUES
+(2, 60, 'Tickets will be sold at the venue on the day of the event           \r\n        ', NULL, 45, NULL, 8);
 
 -- --------------------------------------------------------
 
@@ -401,7 +426,7 @@ CREATE TABLE IF NOT EXISTS `vendor` (
   `VenPicture` longblob,
   PRIMARY KEY (`VenID`),
   UNIQUE KEY `VenName` (`VenName`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
