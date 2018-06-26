@@ -421,8 +421,7 @@ body {
     background-color: white;
     color: black;
     overflow: hidden;
-    border-top-style: solid;
-    border-top-color: rgb(216,216,216);
+    
 }
 
 .vendors_holder{
@@ -431,8 +430,7 @@ body {
     padding: 10px;
     margin: auto;
     overflow: hidden;
-    border-top-style: solid;
-    border-top-color: rgb(216,216,216);
+    
     background-color: white;
     
 }

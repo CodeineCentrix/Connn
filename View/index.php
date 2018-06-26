@@ -145,12 +145,14 @@ and open the template in the editor.
                     </div>
                 <div class="ticket_holder">
                     <h3 class="black_text align_center_text">Ticket information</h3>
+                    <div class="ticket_balancer">
                 <h4 class="black_text align_center_text">WHERE:</h4>
                 <p class="paragraph_text align_center_text"><?php echo $tickets["TicDescription"];?><p>
                 <h4 class="black_text align_center_text">Prices:</h4>
                 <p class="black_text align_center_text">Weekend Pass:&nbsp;&nbsp;R<?php echo $tickets['TicPriceWeekendPass'];?></p>
                 <p class="black_text align_center_text">Daily Pass:&nbsp;&nbsp;R<?php echo $tickets['TicPriceNormalPass'];?><p>
-                </div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div> 
