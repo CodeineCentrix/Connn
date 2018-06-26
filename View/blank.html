@@ -1,0 +1,71 @@
+
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <a class="navbar-brand" href="">Con.ect Admin</a> 
+            </div>
+			  <div style="color: white;
+				padding: 15px 50px 5px 50px;
+				float: right;
+				font-size: 16px;"><?php $mydate=getdate(date("U"));echo "$mydate[weekday], $mydate[month] $mydate[mday], $mydate[year]";?>
+                              &nbsp;  <a href="#" class="btn btn-danger square-btn-adjust" style="background-color:blue;">Logout</a> </div>
+        </nav>   
+           <!-- /. NAV TOP  -->
+                <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">				
+					
+                    
+                     <li>
+                        <a  href="?action=show_business"><i></i>Con.ect </a>
+                    </li>
+                    <li>
+					<!--has colaps feature I can use this for add and editing-->
+                        <a  href="?action=maintain_events"><i></i>Events </a>
+                    </li>
+						   <li  >
+                        <a   href="?action=maintain_event_activities"><i></i>Activities </a>
+                    </li>	
+                      <li>
+                        <a  href="?action=maintain_sponsors"><i ></i>Sponsor </a>
+                    </li>
+					                   
+                    <li>
+                        <a href="#"><i></i> Vendor<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="?action=Vendor_details">Add</a>
+                            </li>
+                            <li>
+                                <a href="?action=show_edit_vendor">Edit</a>
+                            </li>
+                           
+                        </ul>
+                      </li>  
+                  	
+                </ul>
+               
+            </div>
+            
+        </nav>  
+        <!-- /. NAV SIDE  -->
+        
+    </div> 
+        
+        
+    
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="../scripts/jquery-1.10.2.js"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="../scripts/bootstrap.min.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="../scripts/jquery.metisMenu.js"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="../scripts/custom.js"></script>

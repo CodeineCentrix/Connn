@@ -12,9 +12,10 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        <div><?php include '../View/admin_header.txt'; ?></div>
-        <h1 class="string">Add an activity</h1>
-         <p class="string fa fa-info-circle ">This page is used to create, maintain and update event activities</p>
+        <div id="page-wrapper">
+        <div class="col-md-6">
+        <h1>Add an activity</h1>
+       <!--  <p class="string fa fa-info-circle ">This page is used to create, maintain and update event activities</p>-->
         <?php if(isset($is_added)==TRUE):?>
         <?php if($is_added===TRUE):?>
         <p class="isa_success">Activity has been Successfully added!</p>
@@ -23,23 +24,27 @@ and open the template in the editor.
         <?php endif; ?>
         <?php endif;?>
         
-        <div class=" region">
+        <div>
             
             <form method="POST" action="../Controller/index.php?action=maintain_event_activities">
-                <label>Select an event before adding a activity</label><br>
-                <select name="cmbevents" required>
+                   <div class="form-group">
+                <label>Select an event before adding a activity</label>
+                <select name="cmbevents" required class="form-control">
                   <?php foreach ($events_combo as $ss): ?>
                 <option value="<?php echo $ss["EveID"];?>"><?php echo $ss["EveName"];?></option>
                 <?php endforeach; ?>   
-                </select><br>
-                <label>Enter a catchy heading</label><br>
-                <input type="text" name="txtTitle" required><br>
-                <label>Enter the headings paragraph</label><br>
-                <textarea name="txtDescription" cols="100" rows="15" required></textarea><br>
+                </select>
+                <label>Enter a catchy heading</label>
+                <input type="text" name="txtTitle" required class="form-control">
+                <label>Enter the headings paragraph</label>
+                <textarea name="txtDescription" required class="form-control"></textarea>
                 <input type="hidden" value="confirm" name="event">
-                <input type="submit" value="Add Activity">
-            </form>
-            <a href="../Controller/index.php?action=edit_event_activities">Edit activities</a>
+                <input type="submit" class="btn btn-primary" value="Add Activity">
+                   </div>
+                </form>
+            <a href="../Controller/index.php?action=">Edit activities</a>
         </div>
     </body>
+    </div>
+    </div>
 </html>

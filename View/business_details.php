@@ -1,4 +1,3 @@
-<?php include 'admin_header.txt'; ?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -10,8 +9,9 @@
         </style>
     </head>
     <body>
-        <h1>Business Details</h1>
-        <div class="hidden">
+        <div id="page-wrapper">
+       
+        <!--<div class="hidden">
         <h2>This page enables you to add Business details once</h2>
         <form method="POST">
                 <div>
@@ -30,35 +30,38 @@
                         <input type="submit" value="Add Business">
 		</div>
 	</form>
-        </div>
-        <div>
-            <hr/>
-            <h2>Edit business details here</h2>
+        </div>-->
+        <div class="col-md-6">
+          
+            <h1>Business Details</h1>
+            <div >
             <form method="POST" action="../Controller/index.php">
-                <div>
-                        <input name="editBusID" type="hidden" value="<?php echo $business['BusID']; ?>"  />
+                <div class="form-group">
+                        <input  name="editBusID" type="hidden" value="<?php echo $business['BusID']; ?>"  />
                         <label>Business Name</label>
-			<input name="editBusName" type="text" required="true" value="<?php echo $business['BusName']; ?>"  />
+			<input class="form-control" name="editBusName" type="text" required="true" value="<?php echo $business['BusName']; ?>"  />
                         <br/><br/>
 			<label>Date Founded</label>
-                        <input name="editBusDateFound" type="date" required="true" value="<?php echo $business['BusDateFound']; ?>"  />
+                        <input class="form-control" name="editBusDateFound" type="date" required="true" value="<?php echo $business['BusDateFound']; ?>"  />
                         <br/><br/>
 			<label >Slogan</label>
-			<input name="editBusSlogan" type="text" required="true" value="<?php echo $business['BusSlogan']; ?>" />
+			<input class="form-control" name="editBusSlogan" type="text" required="true" value="<?php echo $business['BusSlogan']; ?>" />
                         <br/><br/>
 			<label>logo</label>
-                        <input name="editBuslogo" type="text" required="true" value="<?php echo $business['BusLogo']; ?>" />
+                        <input class="form-control" name="editBuslogo" type="text" required="true" value="<?php echo $business['BusLogo']; ?>" />
                         <br/><br/>
 			<label>Address</label>
-			<input name="editBusAddress" type="text" required="true" value="<?php echo $business['BusAddressID']; ?>" />
+			<input class="form-control" name="editBusAddress" type="text" required="true" value="<?php echo $business['BusAddressID']; ?>" />
                         <br/><br/>
 			<label>About us</label>
-			<textarea name="editBusAboutUs" required="true" ><?php echo $business['BusAboutUs']; ?> </textarea>
+			<textarea class="form-control" name="editBusAboutUs" required="true" ><?php echo $business['BusAboutUs']; ?> </textarea>
                         <br/><br/>
-                        <input type="submit" value="Edit business">
-                        <input type="hidden" name="action" value="edit_business">
+                        <input type="submit" class="btn btn-primary" value="Edit business">
+                        <input type="hidden"  name="action" value="edit_business">
 		</div>
 	</form>
+        </div>
+        </div>
         </div>
     </body>
 </html>

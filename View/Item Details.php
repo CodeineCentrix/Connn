@@ -2,9 +2,11 @@
 	<html>
 	<head>
 		<title>Add Items</title>
-		<h1> Item Details </h1>
+		
 	</head>
 		<body>
+                     <div id="page-wrapper">
+                    <h1> Item Details </h1>
 			<label>Click The "Get Items" Button To Choose How Many Items To Add</label><br>
 			<div id="fields">
 			</div>
@@ -30,6 +32,6 @@
 				<br>
 				<input type="submit" value="Submit" name="submit">
 			</form>
-
+                     </div>>
 		</body>
 </html>

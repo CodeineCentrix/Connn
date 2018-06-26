@@ -1,43 +1,83 @@
-
 <html>
 <head>
 	<title>Vendor</title>
-
-<link rel="stylesheet" href="../stylesheets/admin_pages.css">
-<link rel="stylesheet" href="../stylesheets/fontawesome.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-	<body>
-            <div> <?php include '../View/admin_header.txt'; ?></div>
-            <h1 class="string">Vendor Details</h1>
-            <p class="string fa fa-info-circle">This page is used to add a vendor</p>
-                <?php if(isset($vendor)):?>
-                <?php if($vendor==TRUE): ?>
-                <p class="isa_success">Vendor was successfully added</p>
-                <?php else: ?>
-                <p class="isa_error">Vendor wasn't added, try again- helps using a more reliable browser like google chrome</p>
-                <?php endif; ?>
-                <?php endif; ?>
-                <div class="region">
-                    <h2 class="string add_vendor">Add a vendor here</h2>
-                <form method="POST" action="../Controller/index.php?action=Add_Vendor" enctype="multipart/form-data">
-			<label>Vendor Name:</label><br>
-                        <input type="text" align="center" name="vendor_name" required autofocus="true"><br>			
-			<label>Description:</label><br>
-                        <input type="text" align="center" name="vendor_description" required="true"><br>			
-			<label>facebook Account:</label><br>
-                        <input type="url" align="center" name="vendor_facebook"><br>			
-			<label>Twitter Account:</label><br>
-                        <input type="url" align="center" name="vendor_twitter"><br>			
-			<label>Instagram Account:</label><br>
-                        <input type="url" align="center" name="vendor_instagram"><br>			
-			<label>Website Link:</label><br>
-                        <input type="url" align="center" name="vendor_website"><br>			
-			<label>Picture:</label><br>
-                        <input type="file" align="center" required  accept="image/jpg" name="fpVenPicture"/><br>	
-			<input type="submit" value="Add Vendor">			
+	<body>	         
+            <div id="page-wrapper">
+		
+		<?php 
+		if (isset($isSuccessfull)) {
+                    if ($isSuccessfull === TRUE) {
+                        echo '<p class="isa_success">Vendor was successfully edited</p>';
+                    } else if ($isSuccessfull == FALSE) {
+                        echo'<p class="isa_error">Vendor could not be edited, try again later ow yeah make sure you are not using firefox</p>';
+                    }
+                }
+                ?>
+                <div class="col-md-5">
+                    <h1>Add Vendor Details</h1>
+		<form role="form" method="POST" action="" enctype="multipart/form-data">
+                    <div class="form-group">
+                        
+			<label>Vendor Name:</label><input type="text" class="form-control" name="vendor_name" required="true" autofocus="true"><br>
+			<br>
+			<label>Description:</label><input type="text" class="form-control" name="vendor_description" required="true"><br>
+			<br>
+			<label>facebook Account:</label><input type="url" class="form-control" name="vendor_facebook"><br>
+			<br>
+			<label>Twitter Account:</label><input type="url" class="form-control" name="vendor_twitter"><br>
+			<br>
+			<label>Instagram Account:</label><input type="url" class="form-control" name="vendor_instagram"><br>
+			<br>
+			<label>Website Link:</label><input type="url" class="form-control" name="vendor_website"><br>
+			<br>
+			<label>Picture:</label>
+			<input type="file" align="center"  accept="image/jpg" name="fpVenPicture"/>
+			
+			<input type="hidden" name="action" value="Add_Vendor">
+			<br>
+			<br>
+			<input type="submit" class="btn btn-primary" value="Submit"> &nbsp;&nbsp;
+			</div>
 		</form>
                 </div>
-		
+<!--                <div class="col-md-6">
+                    <h1>Edit Vendor Details</h1>
+                        <form role="form" method="GET" action="?action=">
+                            <input type="hidden" name="venID" value="<?php//if (isset($vendor['VenID'])) {
+                                echo $vendor['VenID'];
+                            }
+                            ?>"/>
+                            <div class="form-group">
+                                <label>Vendors</label>
+                                <select class="form-control">
+                                    <option selected disabled value=''>Vendor</option>
+                                    <?php //foreach($vendors as $ven) : ?>
+                                    <option value="<?php //echo $ven['VenID']; ?>"> <?php// echo $ven['VenName']; ?> </option>
+                                    <?php// endforeach; ?>
+                                   
+                                </select>
+                                
+                                </div>
+                            <input type="submit" class="btn btn-block" value="find" > 
+                        </form>
+                </div>-->
+                <div class="col-md-6">
+		<?php
+		$diplay;
+				if(isset($diplay))
+				{
+					$image = imagecreatefromstring($diplay); 
+					ob_start(); 
+					imagejpeg($image, null, 80);
+					$data = ob_get_contents();
+					ob_end_clean();
+					echo '<img src="data:image/jpg;base64, '.base64_encode($data).' " style="width:250px; height:250px;" />';
+					
+				}
+				?>
+                </div>
+            
+            </div>
 	</body>
 </html>

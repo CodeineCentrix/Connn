@@ -102,89 +102,9 @@ and open the template in the editor.
 
 /* Aanthis weird stuffffff */
 
-header {background-color: blue;
-    position:relative ;
-    top: 0;
-	left:0;
-    width: 100%;
-	padding-left: 0px;
-    }
-header a {
-    text-decoration: none;
-    color: white;
-    font-size: 20px;
-    padding: 15px;
-    display:inline-block;
-}
-
-ul li {
-  float: left;
-  margin: 15px;
-}
-
-ul{
-    list-style-type: none;
-    background-color: blue;
-    width: 100%;
-    overflow: hidden;
-}
-.headertoplist .headeritem {display: inline-block;}
-.headertoplist .headeritem:hover {background: #555;}
-.headertoplist .headeritem:hover .headerseclist {display: block;}
-.headertoplist .headeritem .headerseclist {
-  position: absolute;
-  width: 200px;
-  display: none;
-}
-.headertoplist  .headeritem .headerseclist li { 
-  background: #555; 
-  display: block; 
-}
-.headertoplist  .headeritem .headerseclist li a {display:block !important;} 
-.headertoplist  .headeritem .headerseclist li:hover {background: #666;}
-
-.home
-{
-background-color: black;
-}
 
 
-ul li:hover ul {display: block;}
-		ul li ul {
-		display: none;
-		  width: 200px;			
-		  color: white;
-		}
-		ul li ul li { 
-		display: block; 
-		}
-		ul li ul  li:hover {
-			background: #666;
-			font-size: 20px;
-			}
-		a {
-		text-decoration: none;
-		padding: 5px;
-		display:inline-block;
-		}
-		a:hover{
-			font-size: 25px;
-			color: white;
-                }
-.add_vendor form {
-    overflow: hidden;
 
-}
 
-.edit_vendor{
-    width: 30%;
-    overflow: hidden;
-}
-
-.vendor_form_content{
-    margin: auto;
-    overflow: hidden;
-    padding: 3px;
-}
 
       

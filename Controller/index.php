@@ -39,6 +39,7 @@ switch($action) {
             
     /* Region: Vendor           */
 	case 'Vendor_details':
+            call_stylesheets();
 		include('../View/Vendor_details.php');
 		break;
 
@@ -53,7 +54,8 @@ switch($action) {
 		$isSuccessfull = null;
 			$image = file_get_contents($_FILES['fpVenPicture']['tmp_name']);		
                         $vendor = $data->add_vendor($VenName, $VenDescription, $VenFacebook, $VenTwitter, $VenInstagram, $VenWebsite,$image );		
-		include('../View/Vendor_details.php');
+		call_stylesheets();
+                        include('../View/Vendor_details.php');
 		break;
 
 	
@@ -95,6 +97,7 @@ switch($action) {
 		}
 		$vendors = $data->get_vendors();
 		$vendor = $data->get_vendor_by_id($venID);
+                call_stylesheets();
 		include '../View/Edit_Vendor.php';
 		
 		break;
@@ -136,20 +139,22 @@ switch($action) {
 		}
 		$vendors = $data->get_vendors();
 		$vendor = $data->get_vendor_by_id($venID);
+                call_stylesheets();
 		include '../View/Edit_Vendor.php';
 		
 		break;
                 
                 case 'show_edit_vendor':
 		$vendors = $data-> get_vendors();
-		$venID = filter_input(INPUT_GET,"vendorID",FILTER_SANITIZE_STRING);
+		$venID = filter_input(INPUT_POST,"dbVenID",FILTER_SANITIZE_STRING);
 		$vendor = $data->get_vendor_by_id($venID); 
-		
+		call_stylesheets();
 		include '../View/Edit_Vendor.php';
 		break;
             
                 case 'get_vendors':
 		$vendors = $data-> get_vendors();
+                    call_stylesheets();
 		include('../View/Vendor_details.php');
 		break;
                 /* End Region Vendor*/
@@ -159,6 +164,7 @@ switch($action) {
         case 'show_business':
                 //getting the business attributes
 		$business = $data-> get_business();
+                call_stylesheets();
 		include('../View/business_details.php');
 		break;
         //editing the business attributes
@@ -174,6 +180,7 @@ switch($action) {
 		$data->EditBusiness($editBusName , $editBuslogo ,$editBusSlogan,$editBusAddress,$editbusAboutUs,$editBusDateFound);
                 //reloading the page
                $business = $data-> get_business();
+               call_stylesheets();
 		include('../View/business_details.php');
                 break;
                 
@@ -227,6 +234,7 @@ switch($action) {
                $event_input = "add"; 
             }
              $events_combo = $data->get_events();
+             call_stylesheets();
             include'../View/events_details.php';
             break;
         
@@ -262,6 +270,7 @@ switch($action) {
                 $input_event= "add";
             }
             $cmb_data = $data->get_sponsors();
+            call_stylesheets();
             include '../View/sponsor_details.php';
             break;
       
@@ -274,6 +283,7 @@ switch($action) {
                 $is_added = $data->add_activity($event_ID, $title, $desc);
             }
             $events_combo = $data->get_events();
+            call_stylesheets();
             include '../View/event_activities.php';
             break;
             
@@ -288,6 +298,7 @@ switch($action) {
             }
             $events_combo = $data->get_events();
             $activities = $data ->get_activities();
+            call_stylesheets();
             include '../View/edit_activities.php';
             break;
                 /*End Healings section*/
@@ -316,12 +327,13 @@ switch($action) {
 						echo 'UPLOADED!';
 					}
 				}
-
+                        call_stylesheets();
 			include'../View/gallery_uploads.php';
 			break;
         
         case'show_gallery':
 			$pictures = $data->get_picture();
+                        
 			include'../View/gallery.php';
             break;
 
@@ -329,3 +341,8 @@ switch($action) {
 
         
 }//End switch 
+
+function call_stylesheets() {
+   echo " <head><!-- BOOTSTRAP STYLES-->    <link href='../stylesheets/bootstrap.css' rel='stylesheet' />     <!-- FONTAWESOME STYLES-->    <link href='../stylesheets/font-awesome.css' rel='stylesheet' />        <!-- CUSTOM STYLES-->    <link href='../stylesheets/custom.css' rel='stylesheet' />     <!-- GOOGLE FONTS-->   <link href=http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /></head>";
+   include_once '../View/blank.html';
+}

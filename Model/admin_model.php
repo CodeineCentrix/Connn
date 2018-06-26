@@ -223,6 +223,7 @@ public function edit_vendor($ven_ID, $venName, $venDescription, $venFacebook, $v
 		 $params = array(
           ':venID'=>$venID     
         );
+        
       return DBHelper::GetRow($stored_procedure,$params);
 	   
     }

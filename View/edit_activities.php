@@ -12,7 +12,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        <div><?php include '../View/admin_header.txt'; ?></div>
+        <div id="page-wrapper">
         <h1 class="string">Edit an activity</h1>
          <p class="string fa fa-info-circle ">This page is used to update event activities</p>
         <?php if(isset($is_edited)==TRUE):?>
@@ -46,5 +46,6 @@ and open the template in the editor.
             </form>
         </div>
         <?php endforeach;?>
+        </div>
     </body>
 </html>
