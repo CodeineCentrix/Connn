@@ -13,7 +13,7 @@
         <h1 class="black_text align_center_text">Port Elizabeth Geek Convention</h1>
     </div>
     <div class="header_info_right">
-        <div class="button_holder"> <input type="button" value="Admin Login"></div>
+        <div class="button_holder"><div><a href="../Controller/index.php?action=admin_login"> Admin Login</a></div></div>
     </div>
 </header>
     <div>

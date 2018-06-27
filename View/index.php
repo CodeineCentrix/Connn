@@ -171,7 +171,7 @@ and open the template in the editor.
               $bas64 = base64_encode($url);
               $fQIMG = "data:image/jpg;base64,".$bas64; 
               echo $fQIMG;
-                ?>" alt="<?php ?>" style="width:100%">
+                ?>" alt="<?php ?>" style="width:250px; height: 250px;">
                 <?php endif; ?>
             
                 <h1><?php echo $vendor['VenName'];?></h1>
@@ -183,6 +183,22 @@ and open the template in the editor.
             <a href="<?php echo $vendor['VenFacebook'];?>"><i class="fa fa-facebook"></i></a> 
           </div>
             <?php endforeach; ?>
+                
+                <!--- Pagination attempt -->
+                <div class="pagination_holder">
+                    <div class="pagination_content">
+                        <nav>
+                            <ul>
+                        <?php 
+                        $current_record = 0;
+                        $page= 0;
+                        foreach ($num_rows as $row):?>
+                                <li><a href="<?php echo $current_record+=5; ?>"><?php echo $page++;?></a></li>
+                        <?php endforeach; ?>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             <?php else: ?>
                 <p>Oops, looks as if we are out of these. Try again later.</p>
             <?php endif;?>

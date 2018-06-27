@@ -303,8 +303,8 @@ switch($action) {
             break;
             
             case 'admin_login':
-                $username = filter_input(INPUT_POST, '');
-                $password = filter_input(INPUT_POST, '');
+                $username = filter_input(INPUT_POST, 'username');
+                $password = filter_input(INPUT_POST, 'password');
                 if (isset($username) && isset($password)) {
                     $login_admin = $data->admin_login($username, $password);
                      $attempt_login = TRUE;
@@ -312,11 +312,11 @@ switch($action) {
                     $attempt_login = FALSE;
                 }
                 
-                if ($attempt_login===TRUE && isset($login_admin)!=NULL) {
+                if (!empty($login_admin)) {
                     call_stylesheets();
                     include '../View/event_details.php'; 
                 }else{
-                include '../Controller/View/admin_login.php';
+                include '../View/admin_login.php';
                 }
                 break;
                 /*End Healings section*/
