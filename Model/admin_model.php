@@ -242,4 +242,13 @@ public function edit_vendor($ven_ID, $venName, $venDescription, $venFacebook, $v
            $stored_procedure="CALL uspEventAddress()";
            return DBHelper::GetRow($stored_procedure);
         }
+        
+        public function admin_login($username, $password) {
+            $stored_procedure = "CALL uspLogin(:user_name, :pass_word)";
+		 $params = array(
+          ':user_name'=>$username,
+          ':pass_word'=>$password          
+        );
+        return DBHelper::GetRow($stored_procedure, $params);
+        }
 }

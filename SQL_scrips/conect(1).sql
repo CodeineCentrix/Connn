@@ -32,6 +32,10 @@ DROP PROCEDURE IF EXISTS `upsGetEvent`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `upsGetEvent` ()  NO SQL
 SELECT * FROM `event`$$
 
+DROP PROCEDURE IF EXISTS `uspLogin`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspLogin`(IN `user_name` TEXT, IN `pass_word` TEXT) NOT DETERMINISTIC NO SQL 
+SQL SECURITY DEFINER SELECT * FROM admin WHERE LOWER(username) = LOWER(user_name) AND `password` = pass_word$$
+
 DROP PROCEDURE IF EXISTS `upsGetPicture`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `upsGetPicture` ()  NO SQL
 SELECT *
@@ -406,6 +410,19 @@ CREATE TABLE IF NOT EXISTS `ticket_type` (
   `TicTypName` varchar(50) NOT NULL,
   PRIMARY KEY (`TicTypID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `conect`.`admin` 
+( `username` TEXT NOT NULL , 
+`password` TEXT NOT NULL , 
+`adminID` INT NOT NULL AUTO_INCREMENT ,
+ UNIQUE (`adminID`)
+) ENGINE = InnoDB;
 
 -- --------------------------------------------------------
 

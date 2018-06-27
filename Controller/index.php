@@ -301,6 +301,24 @@ switch($action) {
             call_stylesheets();
             include '../View/edit_activities.php';
             break;
+            
+            case 'admin_login':
+                $username = filter_input(INPUT_POST, '');
+                $password = filter_input(INPUT_POST, '');
+                if (isset($username) && isset($password)) {
+                    $login_admin = $data->admin_login($username, $password);
+                     $attempt_login = TRUE;
+                }else {
+                    $attempt_login = FALSE;
+                }
+                
+                if ($attempt_login===TRUE && isset($login_admin)!=NULL) {
+                    call_stylesheets();
+                    include '../View/event_details.php'; 
+                }else{
+                include '../Controller/View/admin_login.php';
+                }
+                break;
                 /*End Healings section*/
             
             //This case is incorrectly structured, we seriously need to reconfigure it, recall the controller cannot be used as a 
