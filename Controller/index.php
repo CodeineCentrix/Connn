@@ -356,6 +356,49 @@ switch($action) {
             break;
 
         
+        //Healings pagination attempt...
+            case 'paginate': 
+                $from = 0;
+                $page = filter_input(INPUT_POST, 'page');
+                if ($page != 1){ 
+                    $from = ($page-1) * 4;                   
+                }
+                 else{
+                     $from=0;                     
+                 }
+                $vendors = $data->paginate_vendors($from);      
+                $total_vendors =  $data->count_vendors();
+                
+                //Dicatate the page numbers
+                $num_page = ceil($total_vendors["Total"]/4);
+                //create how the div tag should look like
+                $vendor_section ='';
+                if(!empty($vendors)){
+                foreach ($vendors as $vendor) {
+                 $vendor_section.='<div class="card_a">';
+                 if($vendor["VenPicture"]==NULL){
+                   $vendor_section.='<img src="../pics/Image-not-found.jpg" alt="'. $vendor['VenName'].'" style="width:100%">';   
+                 }else{
+                    $url =$vendor["VenPicture"];
+                    $bas64 = base64_encode($url);
+                    $fQIMG = "data:image/jpg;base64,".$bas64;
+                   $vendor_section.='<img src="'.$fQIMG.'" alt="'.$vendor['VenName'].'" style="width:250px; height: 250px;">';  
+                 }
+                 $vendor_section.='<h1>'. $vendor['VenName'].'</h1>
+            <p class="title">'. $vendor['VenDescription'].'</p>
+            <a href="'. $vendor['VenWebsite'].'"><i class="fa fa-dribbble"></i></a> 
+            <a href="'. $vendor['VenTwitter'].'"><i class="fa fa-twitter"></i></a> 
+            <a href="'. $vendor['VenInstagram'].'"><i class="fa fa-linkedin"></i></a> 
+            <a href="'. $vendor['VenFacebook'].'"><i class="fa fa-facebook"></i></a></div>';
+                }
+                }else{
+                    $vendor_section ="<p>Oops, looks as if we've ran out of of vendors</p>";
+                }
+                $return_data = array("numPage"=>$num_page, "vendorCards"=>$vendor_section);
+                $return_data=json_encode($return_data);
+                //can use echo here 
+                echo $return_data;
+                break;
 
         
 }//End switch 

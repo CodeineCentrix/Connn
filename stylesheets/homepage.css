@@ -25,9 +25,6 @@ and open the template in the editor.
     overflow: hidden;   
 }
             
-.fullscreen-bg  {
-                cursor: url('../Images/cursor.png'), auto;
-            }
 label{
     font-family: 'Century Gothic';
     color:black;

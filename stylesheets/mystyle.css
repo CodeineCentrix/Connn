@@ -490,3 +490,33 @@ button:hover, a:hover {
     text-align: center;
     
 }
+
+.loader_holder{
+    width: 20%;
+    margin: auto;
+    padding: 10px;
+}
+.loader {
+   border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px solid #909090;
+  width: 80px;
+  height: 80px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+#pagination div { display: inline-block; margin-right: 5px; margin-top: 5px }
+	#pagination .cell a { border-radius: 3px; font-size: 11px; color: #333; padding: 8px; text-decoration:none; border: 1px solid #d3d3d3; background-color: #f8f8f8; }
+	#pagination .cell a:hover { border: 1px solid #c6c6c6; background-color: #f0f0f0;  }
+	#pagination .cell_active span { border-radius: 3px; font-size: 11px; color: #333; padding: 8px; border: 1px solid #c6c6c6; background-color: #e9e9e9; }
+	#pagination .cell_disabled span { border-radius: 3px; font-size: 11px; color: #777777; padding: 8px; border: 1px solid #dddddd; background-color: #ffffff; }

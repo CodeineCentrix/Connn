@@ -8,8 +8,7 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title>Home Page</title>
-        <link rel="stylesheet" href="../stylesheets/mystyle.css">
-        <script src="scripts/myscript.js"></script>
+        <link rel="stylesheet" href="../stylesheets/mystyle.css">        
         <!-- Section for jQuery plugins -->       
         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <script type="text/javascript" src="../scripts/jquery.min.js"></script>
@@ -17,6 +16,7 @@ and open the template in the editor.
         <script type="text/javascript" src="../scripts/kinetic.js"></script> 
         <script type="text/javascript" src="../scripts/jquery.final-countdown.js"></script>
         <link rel="stylesheet" href="../stylesheets/homepage.css">
+        <script src="../scripts/myscript.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Google fonts-->
@@ -140,7 +140,7 @@ and open the template in the editor.
                    <div class="map_holder">
                     <div class="map_balancer">
                         <h3 class="black_text align_center_text">Venue information</h3>
-                <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBQk0d2TXWcrEPgbSK2wsdcwBpzkT6iGYg&q=<?php echo $address["EveAddress"]; ?>" frameborder="0" style="border:0" allowfullscreen></iframe>
+                <!--<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBQk0d2TXWcrEPgbSK2wsdcwBpzkT6iGYg&q=<?php echo $address["EveAddress"]; ?>" frameborder="0" style="border:0" allowfullscreen></iframe>-->
                     </div>
                     </div>
                 <div class="ticket_holder">
@@ -159,52 +159,16 @@ and open the template in the editor.
             
             <div class="stakeholder" id="link_vendors">            
             <h1 class="company_font black_text align_center_text">Our Vendors</h1>           
-            <div class="vendors_holder">
-                <?php if(isset($vendors)!=NULL):?>
-              <?php foreach ($vendors as $vendor): ?>  
-            <div class="card_a">
-                <?php if($vendor["VenPicture"]==NULL):?>
-                <img src="../pics/Image-not-found.jpg" alt="<?php echo $vendor['VenName']; ?>" style="width:100%">
-                <?php else:?>
-                <img src="<?php 
-                $url =$vendor["VenPicture"];
-              $bas64 = base64_encode($url);
-              $fQIMG = "data:image/jpg;base64,".$bas64; 
-              echo $fQIMG;
-                ?>" alt="<?php ?>" style="width:250px; height: 250px;">
-                <?php endif; ?>
+            <div class="vendors_holder" id="vendors_area" >
+
+            </div>    
             
-                <h1><?php echo $vendor['VenName'];?></h1>
-            <p class="title"><?php echo $vendor['VenDescription'];?></p>
-            <!--<p>Vendor Stall <?php// echo $vendor['VenID'];?></p>-->
-            <a href="<?php echo $vendor['VenWebsite'];?>"><i class="fa fa-dribbble"></i></a> 
-            <a href="<?php echo $vendor['VenTwitter'];?>"><i class="fa fa-twitter"></i></a> 
-            <a href="<?php echo $vendor['VenInstagram'];?>"><i class="fa fa-linkedin"></i></a> 
-            <a href="<?php echo $vendor['VenFacebook'];?>"><i class="fa fa-facebook"></i></a> 
-          </div>
-            <?php endforeach; ?>
-                
-                <!--- Pagination attempt -->
-                <div class="pagination_holder">
-                    <div class="pagination_content">
-                        <nav>
-                            <ul>
-                        <?php 
-                        $current_record = 0;
-                        $page= 0;
-                        foreach ($num_rows as $row):?>
-                                <li><a href="<?php echo $current_record+=5; ?>"><?php echo $page++;?></a></li>
-                        <?php endforeach; ?>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            <?php else: ?>
-                <p>Oops, looks as if we are out of these. Try again later.</p>
-            <?php endif;?>
-        </div>             
+                    
+            
         </div>
-           
+           <div class="pagination_content" id="pagination">
+                        <a href="#" id="1"></a>
+            </div>
             <div class="sponsors_holder" id="link_sponsors">
             <h1 class='company_font'>Gratitude to our sponsors</h1>
             <br>

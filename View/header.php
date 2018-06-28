@@ -1,5 +1,5 @@
 
-<link rel="stylesheet" type="text/css" href="../stylesheets/myStyles.css">
+
 <link rel="stylesheet" href="../stylesheets/homepage.css">
 <link rel="stylesheet" href="../stylesheets/general.css">
 <header>

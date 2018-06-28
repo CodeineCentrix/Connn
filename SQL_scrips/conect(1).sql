@@ -57,6 +57,19 @@ VALUES (ticOnePrice, ticTwoPrice,ticDesc,
         (SELECT LAST_INSERT_ID() ));
 END$$
 
+DROP PROCEDURE IF EXISTS `uspPGNvendors`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspPGNvendors`(IN `off_set` INT)
+    NO SQL
+SELECT * 
+FROM vendor
+LIMIT off_set, 4$$
+
+DROP PROCEDURE IF EXISTS `uspCountVendors`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspCountVendors`()
+    NO SQL
+SELECT COUNT(*)
+FROM vendor$$
+
 DROP PROCEDURE IF EXISTS `uspAddPicture`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspAddPicture` (IN `galPic` LONGBLOB, IN `galDate` YEAR(4), IN `galDescription` VARCHAR(100))  NO SQL
 INSERT INTO gallery (GalPic,GalDate,GalDescrip,gallery.GalTime)

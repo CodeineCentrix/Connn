@@ -251,4 +251,18 @@ public function edit_vendor($ven_ID, $venName, $venDescription, $venFacebook, $v
         );
         return DBHelper::GetRow($stored_procedure, $params);
         }
+        
+        public function paginate_vendors($from) {
+            $stored_procedure = "CALL uspPGNvendors(:off_set)";
+            $params = array(
+                
+                ":off_set"=> $from
+            );
+            return DBHelper::GetAll($stored_procedure, $params);
+        }
+        
+        public function count_vendors() {
+            $stored_procedure = "CALL uspCountVendors()";
+            return DBHelper::GetRow($stored_procedure);
+        }
 }
