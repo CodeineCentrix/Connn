@@ -265,4 +265,13 @@ public function edit_vendor($ven_ID, $venName, $venDescription, $venFacebook, $v
             $stored_procedure = "CALL uspCountVendors()";
             return DBHelper::GetRow($stored_procedure);
         }
+        
+        public function validate_date($std, $end) {
+            $stored_procedure = "CALL uspValidateDate(:start_dte, :end_dte )";
+            $params = array(
+                ":start_dte"=>$std,
+                ":end_dte"=> $end
+            );
+            return DBHelper::GetRow($stored_procedure,$params);
+        }
 }

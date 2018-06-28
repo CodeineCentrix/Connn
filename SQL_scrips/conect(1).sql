@@ -120,6 +120,13 @@ UPDATE sponsor
 SET SpoName = spoName , SpoWebsite = spoWebsite , SpoPicture = spoPic
 WHERE sponsor.SpoID = spoid$$
 
+DROP PROCEDURE IF EXISTS `uspValidateDate`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspValidateDate`(IN `start_dte` DATE, IN `end_dte` DATE)
+    NO SQL
+SELECT EveID
+FROM event
+WHERE EveStartDate = start_dte AND EveEndDate = end_dte$$
+
 DROP PROCEDURE IF EXISTS `uspEvent`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspEvent` (IN `eveID` INT)  NO SQL
 SELECT DISTINCT event.* ,  ticket.TicPriceWeekendPass, ticket.TicPriceNormalPass, ticket.TicDescription

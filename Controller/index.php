@@ -399,6 +399,20 @@ switch($action) {
                 //can use echo here 
                 echo $return_data;
                 break;
+                
+            case 'validate_event_date':
+                   $start_date = filter_input(INPUT_POST, 'start_date');
+                   $end_date = filter_input(INPUT_POST, 'end_date');
+                   $is_existant = $data->validate_date($start_date, $end_date);
+                   if($is_existant==NULL){
+                       $is_existant = false;
+                   }else{
+                       $is_existant = true;
+                   }
+                   $return_data = array("IsExist"=>$is_existant); 
+                   $return_data = json_encode($return_data);
+                   echo $return_data;
+                    break;
 
         
 }//End switch 

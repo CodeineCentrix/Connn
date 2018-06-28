@@ -6,10 +6,9 @@
          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQk0d2TXWcrEPgbSK2wsdcwBpzkT6iGYg&libraries=places&callback=initAutocomplete"
          async defer></script>
          <link rel="stylesheet" href="../stylesheets/admin_pages.css">
+         <link rel="stylesheet" href="../stylesheets/mystyle.css">
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-         <style>        
-
-         </style>
+         <script src="../scripts/myscript.js"></script>
     </head>
     <body>
         
@@ -39,9 +38,10 @@
         <div class="form-group">
         <input class="form-control" type="hidden" name="event" value="<?php echo "$event_input"; ?>">
         <label>Enter the event start date  </label>
-        <input class="form-control" type="date" required name="dte_start_date" id="start_date" value="<?php echo isset($event_details)?$event_details["EveStartDate"]:NULL; ?>">
+        <input class="form-control" type="date" onChange="checkdate(this)" required name="dte_start_date" id="start_date" value="<?php echo isset($event_details)?$event_details["EveStartDate"]:NULL; ?>">
         <label>Enter the event end date</label>
-        <input class="form-control" type="date" required name="dte_end_date" id="end_date" value="<?php echo isset($event_details)?$event_details["EveEndDate"]:NULL; ?>">
+        <input class="form-control" type="date" onChange="checkdate(this)" required name="dte_end_date" id="end_date" value="<?php echo isset($event_details)?$event_details["EveEndDate"]:NULL; ?>"><br>
+        <p class="" id="date_error"></p>
         <label>Enter the event alias name</label>
         <input class="form-control" type="text" name="txtAlias" required id="txtAlias" value="<?php echo isset($event_details)?$event_details["EveName"]:NULL; ?>">
         <label>Enter the event description below</label>
@@ -161,5 +161,14 @@
        
          </div>
         </div>
+   <!-- This below disables entire form while doing a   -->     
+<div id="myNav" class="overlay">
+  <!-- Overlay content -->
+  <div class="overlay-content">
+      <div class="loader"></div>
+      <div><p>Please wait, validating dates</p></div>
+  </div>
+
+</div>
     </body>
 </html>
