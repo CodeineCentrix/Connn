@@ -10,10 +10,8 @@ $('document').ready(function() {
 
 
 $('#pagination a').click( function() { // When click on a 'a' element of the pagination div
- window.alert("Click event just Happened");
-        var page = 1; // Page number is the id of the 'a' element
+        var page = this.id; // Page number is the id of the 'a' element
 	var pagination = ''; // Init pagination
-        window.alert("The page number is "+page);
         $('#vendors_area').html('<div class="loader"></div>'); // Display a processing div
 	var data = {page: page, per_page: 4,action:'paginate'}; // Create JSON which will be sent via Ajax
 	// We set up the per_page var at 4. You may change to any number you need.
