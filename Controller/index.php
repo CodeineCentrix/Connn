@@ -375,7 +375,7 @@ switch($action) {
                 $vendor_section ='';
                 if(!empty($vendors)){
                 foreach ($vendors as $vendor) {
-                 $vendor_section.='<div class="card_a">';
+                 $vendor_section.='<div class="carousel-cell"> <div class="card_a">';
                  if($vendor["VenPicture"]==NULL){
                    $vendor_section.='<img src="../pics/Image-not-found.jpg" alt="'. $vendor['VenName'].'" style="width:100%">';   
                  }else{
@@ -389,7 +389,7 @@ switch($action) {
             <a href="'. $vendor['VenWebsite'].'"><i class="fa fa-dribbble"></i></a> 
             <a href="'. $vendor['VenTwitter'].'"><i class="fa fa-twitter"></i></a> 
             <a href="'. $vendor['VenInstagram'].'"><i class="fa fa-linkedin"></i></a> 
-            <a href="'. $vendor['VenFacebook'].'"><i class="fa fa-facebook"></i></a></div>';
+            <a href="'. $vendor['VenFacebook'].'"><i class="fa fa-facebook"></i></a></div></div>';
                 }
                 }else{
                     $vendor_section ="<p>Oops, looks as if we've ran out of of vendors</p>";

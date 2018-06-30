@@ -16,6 +16,8 @@ and open the template in the editor.
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
         <script type="text/javascript" src="../scripts/kinetic.js"></script> 
         <script type="text/javascript" src="../scripts/jquery.final-countdown.js"></script>
+        <!--<script type="text/javascript" src="../scripts/flickity.pkgd.min.js"></script>-->
+        <script src="https://unpkg.com/flickity@2.1.2/dist/flickity.pkgd.min.js"></script>
         <link rel="stylesheet" href="../stylesheets/homepage.css">
         <script src="../scripts/myscript.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -159,8 +161,10 @@ and open the template in the editor.
             
             <div class="stakeholder" id="link_vendors">            
             <h1 class="company_font black_text align_center_text">Our Vendors</h1>           
-            <div class="vendors_holder" id="vendors_area" >
-
+            <div class="vendors_holder"  >
+                <div  class="carousel js-flickity" id="vendors_area">
+                    
+                </div>
             </div>    
             
                     
