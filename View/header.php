@@ -5,8 +5,8 @@
 <header>
         
     <div class="header_info_left">
-      <a href="LandingPage.php">
-        <img  class="header_image"src="../pics/conect_logo.png" alt="conext Company Logo" width="200" height="100"> 
+        <a href="../Controller/action">
+        <img  class="header_image"src="../pics/conect_logo.png" alt="conext Company Logo" > 
         </a>  
     </div>
     <div class="header_info_middle">
@@ -16,6 +16,6 @@
         <div class="button_holder"><div><a href="../Controller/index.php?action=admin_login"> Admin Login</a></div></div>
     </div>
 </header>
-    <div>
+    
 <?php include '../View/Menu.php'; ?> 
-    </div>   
+      

@@ -29,11 +29,6 @@ label{
     font-family: 'Century Gothic';
     color:black;
 }
-/*body{
-     width: 100% !important;
-     height: 100% !important;
-     overflow: hidden;
-}*/
 ul {
    list-style-type: none;
    font-family: 'Century Gothic';
@@ -50,9 +45,6 @@ ul {
     margin: auto;
     padding: 2px;
     overflow: hidden;
-/*    width: 100%;*/
-/*    height: 100% !important;*/
-
 }
 
 .middliseV2{
@@ -60,64 +52,11 @@ ul {
     overflow: hidden;
     width: 100%;
     height: 100% !important;
-    cursor: url('../Images/cursor.png'), auto; 
 }
-/*Background Videos*/
-.fullscreen-bg {
-    position: fixed;
-/*    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;*/
-width: 100% !important;
-height: 100% !important;
-    overflow: hidden;
-    z-index: -100;
-    margin: 0;
-   padding: 0;
-}
-.fullscreen-bg__video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-@media (min-aspect-ratio: 16/9) {
-  .fullscreen-bg__video {
-    height: 300%;
-    top: -100%;
-  }
-}
-@media (max-aspect-ratio: 16/9) {
-  .fullscreen-bg__video {
-    width: 300%;
-    left: -100%;
-  }
-}
+
+
 /*End Background Video*/
-/*Login or Register*/
-.login_section a{
-    border-style: solid;
-    border-width: thin;
-    display: block;
-    width: 40%;
-    float: left;
-    text-align: center;
-    margin-right: 5%;
-    text-decoration: none;
-    border-color: blueviolet;
-    font-family: 'Century Gothic';
-    padding: 1%;
-}
-.login_section{
-    width: 50%;
-    height: 33%; 
-}
-.login_section a:hover{
-    background-color: lightcyan;
-}
-/*End Login or Register*/
+
 
 /* the tasty burger */
 .icon-menu {
@@ -184,7 +123,14 @@ transform: rotate(45deg) translateY(0) translateX(0);
   transform: translate(0%, 0%);
   margin-top: 0;
   padding-top: 0;
+ z-index: 5000;
   
+}
+
+.card.clicked{
+    width: 50%;
+    overflow-y: auto;
+   
 }
 
 .drawer {
@@ -250,7 +196,7 @@ div.link_con:nth-of-type(4) {
   font-weight: 700;
   color:  #1ad1fc;
   transition: all .2s ease-out;
-  opacity: 0;
+  opacity: 1;
   transform: translateY(1em);
   margin: 0;
   margin-top: 3px;
@@ -276,4 +222,38 @@ div.link_con:nth-of-type(4) {
 }
 /*End Menu tray*/
 /*Hamburger curtosy of effico https://codepen.io/efficio/pen/vGJbNO */
-
+@media only screen and (max-width: 600px) {
+    .header_info_middle {
+      display: none;
+    }
+    .header_info_right{
+        display: none;
+    }
+    .header_info_left{
+        width:300px;
+        overflow: hidden;
+        margin: auto;
+        padding: 10px;
+        float: none;
+    }
+    .header_info_left a img{
+        width: 200px;
+        height: 100px;
+    }
+    header{
+        width: 100%;
+        overflow: hidden;       
+    }
+    
+    .land_page{
+        min-height: 100% !important;
+        overflow: hidden;
+    }
+    
+    .land_page h1{
+        font-size: 10vw;
+        margin-left: 20px;
+    }
+    
+    
+}

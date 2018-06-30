@@ -19,6 +19,11 @@ body {
     overflow: hidden;
 }
 
+.header_info_left img{
+    width: 200px;
+    height: 100px;
+}
+
 .header_info_middle{
     float: left;
     text-align: center;
@@ -50,6 +55,7 @@ body {
    text-align: center;
 }
 header{
+    width: 100%;
     padding-left: 10%;
     background-color: white;
     height: 100px;
@@ -93,3 +99,54 @@ header{
                 width: 60%;
                 overflow: hidden;
             }
+            
+            .pagination_content{
+                width: 80%;
+                margin: auto;
+                padding: 15px;
+                overflow: hidden;
+            }
+            
+   @media only screen and (max-width: 600px) {
+    .header_info_middle {
+      display: none;
+    }
+    .header_info_right{
+        display: none;
+    }
+    .header_info_left{
+        width:300px;
+        overflow: hidden;
+        margin: auto;
+        padding: 10px;
+        float: none;
+    }
+    .header_info_left a img{
+        width: 200px;
+        height: 100px;
+    }
+    header{
+        width: 100%;
+        overflow: hidden;       
+    }
+    
+    .map_holder{
+        width: 95%;
+        margin: auto;
+        padding: 15px;
+        overflow: hidden;
+    border-right-style: none;
+    }
+    
+    .ticket_holder{
+        width: 95%;
+        margin: auto;
+        padding: 15px;
+        overflow: hidden;
+    }
+    
+    .ticket_balancer{
+         padding: 10px;
+         padding-top: 10px;
+    }
+}         

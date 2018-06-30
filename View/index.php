@@ -7,6 +7,7 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Home Page</title>
         <link rel="stylesheet" href="../stylesheets/mystyle.css">        
         <!-- Section for jQuery plugins -->       
@@ -26,9 +27,9 @@ and open the template in the editor.
     </head>
     <body>
         <div class="land_page">
-        <div><?php include '../View/header.php'; ?></div>
+        <?php include '../View/header.php'; ?>
        <div class="fullscreen-bg">
-           <img src="../pics/kids_play.jpg" alt="CosPlay Costumes" class="fullscreen-bg-gif">
+           <img src="../pics/kids_play.jpg" alt="CosPlay Costumes"  class="fullscreen-bg-gif">
         </div>
         <?php 
         $milisec_begin = "1527804000";
@@ -132,15 +133,14 @@ and open the template in the editor.
             
             <div class="get_start_holder">
                 <div class="get_start_content"id="link_map_tickets">
-                <h1 class="company_font black_text align_center_text">Getting started</h1>
                 
-                <h3 class="company_font black_text align_center_text">Find the venue and get your ticket </h3>
+                <h3 class="company_font black_text align_center_text">The venue and ticket </h3>
                 <div class="map_ticket_holder">
                     
                    <div class="map_holder">
                     <div class="map_balancer">
                         <h3 class="black_text align_center_text">Venue information</h3>
-                <!--<iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBQk0d2TXWcrEPgbSK2wsdcwBpzkT6iGYg&q=<?php echo $address["EveAddress"]; ?>" frameborder="0" style="border:0" allowfullscreen></iframe>-->
+                <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBQk0d2TXWcrEPgbSK2wsdcwBpzkT6iGYg&q=<?php echo $address["EveAddress"]; ?>" frameborder="0" style="border:0" allowfullscreen></iframe>
                     </div>
                     </div>
                 <div class="ticket_holder">
