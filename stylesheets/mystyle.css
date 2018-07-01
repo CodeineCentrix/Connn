@@ -276,12 +276,29 @@ margin: 0px 30px 30px 30px;
     margin-left: 20px;
     margin-right: 20px;
     float:left;
-    width: 30%;
+    width: 10%;
     text-align: center;
     overflow: hidden;
     border-radius: 0px;
 }
 
+.round img{
+    max-width: 100%;
+    height: auto;
+}
+
+.carousel-cell.round{
+  display: block;
+  width: 80%;
+  max-height: 100%;
+}
+.carousel-cell.is-selected .round {
+  opacity: 1;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -webkit-filter: none;
+          filter: none;
+}
 .title {
     color: grey;
     font-size: 18px;
@@ -317,7 +334,6 @@ button:hover, a:hover {
     background: white;
     overflow:hidden;
     text-align: center;
-    
 }
 
 .loader_holder{
@@ -491,4 +507,40 @@ display: none;
                 width: 80%;
                height: auto;
             }
+            
+            .round{
+                width: 100%;
+                overflow: hidden;
+                display: inline-block;
+            }
+            .sponsors_holder{
+                width: 100%;
+                overflow: hidden;
+            }
+            .flex-right{
+                display: flex;
+                width: 100%;
+                overflow-x: scroll;
+            }
+            
+            .force_flex{
+                width: 80%;
+                height: auto;
+            }
+}
+
+footer{
+    background-color: black;
+    color: white;
+    text-align: center;
+    margin: 0;
+    height: 100%;
+    width: 100%
+}
+
+.pagination_content{
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    overflow: hidden;
 }

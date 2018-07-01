@@ -14,7 +14,7 @@
     <div class="links">
        
       <div class="link_con">
-          <i class="icon fa"><a href="."><img src="https://png.icons8.com/ios/50/000000/login-rounded-right-filled.png"></a></i>
+          <i class="icon fa"><a href="../Controller/index.php?action=admin_login"><img src="https://png.icons8.com/ios/50/000000/login-rounded-right-filled.png"></a></i>
         <p class="para">LOGIN</p>
       </div>
        <div class="link_con">

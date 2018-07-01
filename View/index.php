@@ -174,11 +174,13 @@ and open the template in the editor.
                         <a href="#" id="1"></a>
             </div>
             <div class="sponsors_holder" id="link_sponsors">
-            <h1 class='company_font'>Gratitude to our sponsors</h1>
+            <h1 class='company_font'>Our sponsors</h1>
             <br>
-            <?php ?>
-            <?php foreach($sponsors as $sponsor) : ?>
-            <div class='round'>
+            <?php if(isset($sponsors)!=NULL): ?>
+            <div class="flex-right">
+            <?php foreach($sponsors as $sponsor) : ?> 
+                <div class="force_flex">
+            <div class="round">
                 <img src="<?php 
              $url =$sponsor["SpoPicture"];
               $bas64 = base64_encode($url);
@@ -188,8 +190,18 @@ and open the template in the editor.
                 
                 <a href="<?php echo $sponsor["SpoWebsite"] ; ?>"><p class="title black_text"><?php echo $sponsor["SpoName"]; ?></p></a>
             </div>
+                </div>
             <?php endforeach; ?>
+            </div>
+            <?php else: ?>
+            <p>Looks as if we don't have sponsors at the moment, try again later</p>
+            <?php endif; ?>
         </div>
         </div>
+        
+        <footer>
+            <p>Site created with <span class="fa fa-heart"></span> by Con.Structs</p>
+                <p>Contact information: <a href="mailto:centrixcode@gmail.com"> centrixcode@gmail.com</a></p>
+        </footer>
     </body>
 </html>

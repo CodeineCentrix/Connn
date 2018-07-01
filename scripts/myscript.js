@@ -6,7 +6,7 @@
 
 $('document').ready(function() {
 	
-$('#pagination a').click( function() { // When click on a 'a' element of the pagination div
+$('#pagination ').on('click', 'a', function(e) { // When click on a 'a' element of the pagination div
         var page = this.id; // Page number is the id of the 'a' element
 	var pagination = ''; // Init pagination
         $('#vendors_area').html('<div class="loader"></div>'); // Display a processing div
@@ -24,19 +24,19 @@ $('#pagination a').click( function() { // When click on a 'a' element of the pag
         
         // Pagination system
 			if (page == 1) pagination += '<div class="cell_disabled"><span>First</span></div><div class="cell_disabled"><span>Previous</span></div>';
-			else pagination += '<div class="cell"><a href="#" id="1">First</a></div><div class="cell"><a href="#" id="' + (page - 1) + '">Previous</span></a></div>';
+			else pagination += '<div class="cell"><a  id="1">First</a></div><div class="cell"><a  id="' + (page - 1) + '">Previous</span></a></div>';
  
 			for (var i=parseInt(page)-3; i<=parseInt(page)+3; i++) {
 				if (i >= 1 && i <= data.numPage) {
 					pagination += '<div';
 					if (i == page) pagination += ' class="cell_active"><span>' + i + '</span>';
-					else pagination += ' class="cell"><a href="#" id="' + i + '">' + i + '</a>';
+					else pagination += ' class="cell"><a id="' + i + '">' + i + '</a>';
 					pagination += '</div>';
 				}
 			}
  
 			if (page == data.numPage) pagination += '<div class="cell_disabled"><span>Next</span></div><div class="cell_disabled"><span>Last</span></div>';
-			else pagination += '<div class="cell"><a href="#" id="' + (parseInt(page) + 1) + '">Next</a></div><div class="cell"><a href="#" id="' + data.numPage + '">Last</span></a></div>';
+			else pagination += '<div class="cell"><a id="' + (parseInt(page) + 1) + '">Next</a></div><div class="cell"><a id="' + data.numPage + '">Last</span></a></div>';
 			
 			$('#pagination').html(pagination); // We update the pagination DIV
 		},
@@ -44,10 +44,14 @@ $('#pagination a').click( function() { // When click on a 'a' element of the pag
                    // window.alert("Error"+error+"Status"+status);
 		}
 	});
+         e.preventDefault();
 	return false;
+       
 });
 
 $("#pagination a").trigger('click'); // When page is loaded we trigger a click
+
+
 });
 
 function checkdate(input){

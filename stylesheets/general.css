@@ -107,6 +107,8 @@ header{
                 overflow: hidden;
             }
             
+           
+            
    @media only screen and (max-width: 600px) {
     .header_info_middle {
       display: none;
