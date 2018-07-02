@@ -1,6 +1,7 @@
 <html>
 <head>
-	<title>Vendor</title>
+	<title>Add Vendor</title>
+        <link rel="stylesheet" href="../stylesheets/admin_pages.css">
 </head>
 	<body>	         
             <div id="page-wrapper">
@@ -19,24 +20,23 @@
 		<form role="form" method="POST" action="" enctype="multipart/form-data">
                     <div class="form-group">
                         
-			<label>Vendor Name:</label><input type="text" class="form-control" name="vendor_name" required="true" autofocus="true"><br>
-			<br>
-			<label>Description:</label><input type="text" class="form-control" name="vendor_description" required="true"><br>
-			<br>
-			<label>facebook Account:</label><input type="url" class="form-control" name="vendor_facebook"><br>
-			<br>
-			<label>Twitter Account:</label><input type="url" class="form-control" name="vendor_twitter"><br>
-			<br>
-			<label>Instagram Account:</label><input type="url" class="form-control" name="vendor_instagram"><br>
-			<br>
-			<label>Website Link:</label><input type="url" class="form-control" name="vendor_website"><br>
-			<br>
+			<label>Vendor Name:</label><input type="text" class="form-control" name="vendor_name" required="true" autofocus="true">
+		
+			<label>Description:</label><input type="text" class="form-control" name="vendor_description" required="true">
+			
+			<label>facebook Account:</label><input type="url" class="form-control" name="vendor_facebook">
+		
+			<label>Twitter Account:</label><input type="url" class="form-control" name="vendor_twitter">
+			
+			<label>Instagram Account:</label><input type="url" class="form-control" name="vendor_instagram">
+		
+			<label>Website Link:</label><input type="url" class="form-control" name="vendor_website">
+		
 			<label>Picture:</label>
 			<input type="file" align="center"  accept="image/jpg" name="fpVenPicture"/>
 			
 			<input type="hidden" name="action" value="Add_Vendor">
-			<br>
-			<br>
+			
 			<input type="submit" class="btn btn-primary" value="Submit"> &nbsp;&nbsp;
 			</div>
 		</form>

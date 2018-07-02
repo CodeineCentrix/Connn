@@ -17,23 +17,26 @@ body {
 }
 
  #wrapper {
-    
+    position:fixed;
     width: 100%;
     background:#202020;
+	
+	z-index: 100;
+        
 }
 
 #page-wrapper {
+	
 /*    padding: 15px 15px;
     min-height: 600px;*/
     background:#DCDCDC;
-margin: auto;
-position: relative;
-padding: 10px;
-overflow: hidden;
-width: 95%;
+	position: relative;
+	padding: 10px;
+	overflow: auto;
+	width: 95%;
+	margin-top:25%;
+        overflow-x:hidden;
  /*max-height: 100%;*/
- overflow-y: auto;
- 
 }
 #page-inner {
     width:100%;
@@ -175,7 +178,7 @@ line-height: 30px;
      /*CHAT PANEL*/
  .chat-panel .panel-body {
 height: 450px;
-overflow-y: scroll;
+/*overflow-y: scroll;*/
 }
  .chat-box {
 margin: 0;
@@ -213,7 +216,7 @@ max-width:170px;
 }
 
 .navbar-cls-top .navbar-brand {
-	color: #fff;
+color: #fff;
 background: blue;
 width: 260px;
 text-align: center;
@@ -318,7 +321,7 @@ font-weight: 700;
 .navbar-cls-top {
 	background:#4D4D4D;
 	border-bottom:none;
-        
+    width:100%;  
 	
 }
 .navbar-cls-top .navbar-brand:hover {
@@ -330,7 +333,10 @@ color:#fff;
 
 .navbar-default {
 border:0px solid black;
-
+     
+}
+.navbar-default .navbar-cls-top{
+position:fixed;
      
 }
 .navbar-header {
@@ -372,10 +378,11 @@ line-height: 1.428571429;
  
  @media(min-width:768px) {
      #page-wrapper{
-               margin: 0 0 0 260px;
+        margin: 60px 0 0 260px;
         padding: 15px 30px;
-        min-height: 1200px;
-		
+        overflow-y:auto; 
+        z-index:0;
+         overflow-x:hidden;
     }
 	
 	
@@ -396,18 +403,18 @@ line-height: 1.428571429;
     =============================================*/
  
 .isa_info {
-		color: #00529B;
-			background-color: #BDE5F8;
-		}
-		.isa_success {
-			color: #4F8A10;
-			background-color: #DFF2BF;
-		}
-		.isa_warning {
-			color: #9F6000;
-			background-color: #FEEFB3;
-		}
-		.isa_error {
-			color: #D8000C;
-			background-color: #FFD2D2;
-		}
+color: #00529B;
+        background-color: #BDE5F8;
+}
+.isa_success {
+        color: #4F8A10;
+        background-color: #DFF2BF;
+}
+.isa_warning {
+        color: #9F6000;
+        background-color: #FEEFB3;
+}
+.isa_error {
+        color: #D8000C;
+        background-color: #FFD2D2;
+}
