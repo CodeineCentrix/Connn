@@ -26,7 +26,6 @@ public function add_vendor($venName, $venDescription, $venFacebook, $venTwitter,
 	':venPic'=>$venPicture);
 	return DBHelper::Execute($query, $params); 
 }
-
 public function edit_vendor($ven_ID, $venName, $venDescription, $venFacebook, $venTwitter, $venInstagram, $venWebsite,$venPicture)
 {
 	$query = 'CALL uspUpdateVendor(:venID,:venName, :venDescription,:venFacebook, :venTwitter, :venInstagram, :venWebsite,:venPicture)';
@@ -38,7 +37,8 @@ public function edit_vendor($ven_ID, $venName, $venDescription, $venFacebook, $v
 	':venTwitter'=>$venTwitter, 
 	':venInstagram'=>$venInstagram,
 	':venWebsite'=>$venWebsite,	
-	':venPicture'=>$venPicture);
+	':venPicture'=>$venPicture,
+        );
     return DBHelper::Execute($query, $params);
 }
 
@@ -50,17 +50,7 @@ public function edit_vendor($ven_ID, $venName, $venDescription, $venFacebook, $v
                DBHelper::Execute($query, $params);
        }
 
-    public function add_picture($galPic,$galDesc, $galDate)
-	{ 
-		$query = 'CALL uspAddPicture(:galPic,:galDate,:galDescription)';
-		$params = array(
-		':galPic'=>$galPic,
-		':galDate'=>$galDate,
-		':galDescription'=>$galDesc		
-		);
-		return DBHelper::Execute($query, $params);
-	}
-
+   
 /*Region sponsors*/  
     public function get_sponsors() {
         $stored_procedure ="CALL uspGetSponsors()";
@@ -223,7 +213,6 @@ public function edit_vendor($ven_ID, $venName, $venDescription, $venFacebook, $v
 		 $params = array(
           ':venID'=>$venID     
         );
-        
       return DBHelper::GetRow($stored_procedure,$params);
 	   
     }
@@ -232,11 +221,7 @@ public function edit_vendor($ven_ID, $venName, $venDescription, $venFacebook, $v
       return DBHelper::GetRow($stored_procedure);
 	   
     }
-	public function get_picture()
-	{
-		 $stored_procedure = "CALL uspGetPicture()";
-      return DBHelper::GetRow($stored_procedure);
-	}
+	
         
         public function get_event_address() {
            $stored_procedure="CALL uspEventAddress()";
@@ -274,4 +259,47 @@ public function edit_vendor($ven_ID, $venName, $venDescription, $venFacebook, $v
             );
             return DBHelper::GetRow($stored_procedure,$params);
         }
+        /*Start pictures*/
+        public function add_picture($galPic,$galDesc, $galDate){ 
+            $query = 'CALL uspAddPicture(:galPic,:galDate,:galDescription)';
+            $params = array(
+            ':galPic'=>$galPic,
+            ':galDate'=>$galDate,
+            ':galDescription'=>$galDesc		
+            );
+            return DBHelper::Execute($query, $params);
+	}
+        public function edit_picture($galID,$galDesc, $galDate,$galRate){ 
+            $query = 'CALL uspEditPicture(:galID,:galDate,:galDescription,:galRate)';
+            $params = array(
+            ':galID'=>$galID,
+            ':galDate'=>$galDate,
+            ':galDescription'=>$galDesc,
+            ':galRate'=>$galRate
+            );
+            return DBHelper::Execute($query, $params);
+        }
+        public function del_picture($galID) {
+            $stored_procedure ="CALL uspDeletePic(:galID);";
+            $params = array(
+            ':galID'=>$galID
+            );
+            return DBHelper::Execute($stored_procedure, $params);
+        }
+	public function get_picture(){
+            $stored_procedure = "CALL uspGetPicture()";
+            return DBHelper::GetRow($stored_procedure);
+	}
+        public function get_gal_years(){
+            $stored_procedure = "CALL uspGetGalYears()";
+            return DBHelper::GetAll($stored_procedure);
+	}
+        public function get_year_pictures($year){
+            $stored_procedure = "CALL uspGetYearPics(:galYear)";
+            $params = array(
+               ':galYear'=>$year     
+             );
+            return DBHelper::GetAll($stored_procedure,$params);
+	}
+        /*End pictures*/
 }

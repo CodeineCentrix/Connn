@@ -23,7 +23,7 @@ if ($action == NULL) {
     }
 }
 $data = new admin_model();
-
+$isSuccessfull = null;
 switch($action) {
     
             case 'show_home':
@@ -68,80 +68,35 @@ switch($action) {
 		$venInstagram = filter_input(INPUT_POST, 'venInstagram');
 		$venWebsite = filter_input(INPUT_POST, 'venWebsite');
 		$venPicture = filter_input(INPUT_POST, 'hdImage');
-		$isSuccessfull = null;
 		$dataimg;
+              
 		// Validate input 	
-		
 		if(!empty($_FILES['fpVenPicture']['tmp_name'])){
 			$image = addslashes($_FILES['fpVenPicture']['tmp_name']);
 			$image = file_get_contents($_FILES['fpVenPicture']['tmp_name']);
 			$image_size = getimagesize($_FILES['fpVenPicture']['tmp_name']);
 			if($image_size == false){
-				$isSuccessfull = false;
+                            $isSuccessfull = false;
 			}
 			else{	
-				$dataimg = $image;
-				$isSuccessfull = true;
+                            $dataimg = $image;
+                            $isSuccessfull = true;
 			}
 		}
 		elseif(isset($venPicture )){
-			$dataimg = base64_decode($venPicture);
+			$dataimg = $venPicture;
 			$isSuccessfull = true;
 		}
 		else{
 		
 		}
-		
 		if($isSuccessfull){
-			$isSuccessfull = $data->edit_vendor($venID, $venName, $venDescription, $venFacebook, $venTwitter, $venInstagram, $venWebsite,$dataimg);
+                    $isSuccessfull = $data->edit_vendor($venID, $venName, $venDescription, $venFacebook, $venTwitter, $venInstagram, $venWebsite,$dataimg);
 		}
 		$vendors = $data->get_vendors();
 		$vendor = $data->get_vendor_by_id($venID);
                 call_stylesheets();
 		include '../View/Edit_Vendor.php';
-		
-		break;
-
-	case 'edit_vendor_get':
-		$venID = filter_input(INPUT_GET, 'vendorID');
-		$venName = filter_input(INPUT_GET, 'venName');
-		$venDescription = filter_input(INPUT_GET, 'venDescription');
-		$venFacebook = filter_input(INPUT_POST, 'venFacebook');
-		$venTwitter = filter_input(INPUT_POST, 'venTwitter');
-		$venInstagram = filter_input(INPUT_POST, 'venInstagram');
-		$venWebsite = filter_input(INPUT_POST, 'venWebsite');
-		$venPicture = filter_input(INPUT_POST, 'hdImage');
-		$isSuccessfull = null;
-		$dataimg;
-		// Validate input 	
-		if(!isset($_FILES['image']))
-		{
-			$isSuccessfull = false;
-		}
-		elseif(!empty($_FILES['fpVenPicture']['tmp_name'])){			
-			$image = addslashes($_FILES['fpVenPicture']['tmp_name']);
-			$image = file_get_contents($_FILES['fpVenPicture']['tmp_name']);
-			$image_size = getimagesize($_FILES['fpVenPicture']['tmp_name']);
-			if($image_size == false){
-				$isSuccessfull = false;
-			}
-			else{	
-				$dataimg = $image;
-				$isSuccessfull = true;
-			}
-		}
-		else{
-			$isSuccessfull = false;
-		}
-		
-		if($isSuccessfull){
-			$isSuccessfull = $data->edit_vendor($venID, $venName, $venDescription, $venFacebook, $venTwitter, $venInstagram, $venWebsite,$dataimg);
-		}
-		$vendors = $data->get_vendors();
-		$vendor = $data->get_vendor_by_id($venID);
-                call_stylesheets();
-		include '../View/Edit_Vendor.php';
-		
 		break;
                 
                 case 'show_edit_vendor':
@@ -182,15 +137,9 @@ switch($action) {
                $business = $data-> get_business();
                call_stylesheets();
 		include('../View/business_details.php');
-                break;
+                break; 
                 
-                
-                
-                
-                
-                
-                
-                /*Healings section fellas*/
+                 /*Healings section fellas*/
         case 'maintain_events':
             //Check if user has entered data and is ready to add to the database        
             $event_input = filter_input(INPUT_POST, 'event');
@@ -323,41 +272,59 @@ switch($action) {
             
             //This case is incorrectly structured, we seriously need to reconfigure it, recall the controller cannot be used as a 
             //html page!! and thus echo cannot be used here to display data to a user, rather use variables.. 
-            case 'add_picture':
-			$galDesc = filter_input(INPUT_POST,'image_description');
-			$galDate = filter_input(INPUT_POST,'image_date');
-			$image = addslashes($_FILES['image']['tmp_name']);
-		
-				if(!isset($image))
-				{
-					echo "select pic";
-				}
-				else
-				{
-					$image = file_get_contents($_FILES['image']['tmp_name']);
-					$image_size = getimagesize($_FILES['image']['tmp_name']);
-			
-					if($image_size == false){
-						echo 'This Image Is Not Valid!';
-					}
-					else{
-					$picture=$data->add_picture($image,$galDesc, $galDate);
-						echo 'UPLOADED!';
-					}
-				}
-                        call_stylesheets();
-			include'../View/gallery_uploads.php';
-			break;
+        case 'add_picture':
+            $isSuccessfull = NULL;
+            $galDate = filter_input(INPUT_POST,'image_date');
+            $galDesc = filter_input(INPUT_POST,'image_description');
+            if (isset( $galDesc )) {
+                $image = (file_get_contents($_FILES['galImage']['tmp_name']));
+                $isSuccessfull = $data->add_picture($image, $galDesc, $galDate);
+            }
+            if (!isset($_FILES['galImage']['error']) ||is_array($_FILES['galImage']['error']))
+            {
+                $isSuccessfull = FALSE;
+            }
+            call_stylesheets();
+            include'../View/gallery_uploads.php';
+            break;
+            
+        case'show_gallery_upload':
+             call_stylesheets();
+            include'../View/gallery_uploads.php';
+            break;
         
         case'show_gallery':
-			$pictures = $data->get_picture();
-                        
-			include'../View/gallery.php';
+      
+            $galYears = $data->get_gal_years();
+             $yearPictures;
+            foreach ($galYears as $year) {
+                
+                $yearPictures[] = $data->get_year_pictures($year["Year"]);
+            } 
+            include'../View/gallery.php';
             break;
-
         
-        //Healings pagination attempt...
-            case 'paginate': 
+        case'show_gallery_view':
+            $galID= filter_input(INPUT_POST,'gal_id');
+            if(isset($_POST["btnEdit"])){
+                $galDate = filter_input(INPUT_POST,'image_date');
+                $galDesc = filter_input(INPUT_POST,'image_description');
+                $galRate = filter_input(INPUT_POST,'image_rate');
+                if (isset( $galDesc )){
+                    $isSuccessfull = $data->edit_picture($galID,$galDesc, $galDate,$galRate);
+                }
+              } elseif (isset($_POST["btnDelete"])){
+                    $isSuccessfull = $data->del_picture($galID);
+              }
+            $galYears = $data->get_gal_years();
+            $year =  filter_input(INPUT_GET, "selectedYear");
+            $yearPictures = $data->get_year_pictures($year);
+            $pictures = $data->get_picture();
+            call_stylesheets();
+            include'../View/view_gallery_uploads.php';
+            break;
+        ///////////////////////////////
+             case 'paginate': 
                 $from = 0;
                 $page = filter_input(INPUT_POST, 'page');
                 if ($page != 1){ 
@@ -418,6 +385,6 @@ switch($action) {
 }//End switch 
 
 function call_stylesheets() {
-   echo " <head><!-- BOOTSTRAP STYLES-->    <link href='../stylesheets/bootstrap.css' rel='stylesheet' />     <!-- FONTAWESOME STYLES-->    <link href='../stylesheets/font-awesome.css' rel='stylesheet' />        <!-- CUSTOM STYLES-->    <link href='../stylesheets/custom.css' rel='stylesheet' />     <!-- GOOGLE FONTS-->   <link href=http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /></head>";
+   echo " <head><!-- BOOTSTRAP STYLES-->    <link href='../stylesheets/bootstrap.css' rel='stylesheet' />     <!-- FONTAWESOME STYLES-->    <link href='../stylesheets/font-awesome.css' rel='stylesheet' />        <!-- CUSTOM STYLES-->    <link href='../stylesheets/custom.css' rel='stylesheet' /> "  ;//  <!-- GOOGLE FONTS-->   <link href=http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /></head>";
    include_once '../View/blank.html';
 }

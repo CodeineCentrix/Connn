@@ -6,7 +6,7 @@
          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQk0d2TXWcrEPgbSK2wsdcwBpzkT6iGYg&libraries=places&callback=initAutocomplete"
          async defer></script>
          <link rel="stylesheet" href="../stylesheets/admin_pages.css">
-         <link rel="stylesheet" href="../stylesheets/mystyle.css">
+         <!--  <link rel="stylesheet" href="../stylesheets/mystyle.css">-->
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
          <script src="../scripts/myscript.js"></script>
     </head>
