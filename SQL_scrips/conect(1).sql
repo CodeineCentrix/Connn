@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 26, 2018 at 04:09 AM
+-- Generation Time: Jun 30, 2018 at 02:39 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -32,14 +32,12 @@ DROP PROCEDURE IF EXISTS `upsGetEvent`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `upsGetEvent` ()  NO SQL
 SELECT * FROM `event`$$
 
-DROP PROCEDURE IF EXISTS `uspLogin`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `uspLogin`(IN `user_name` TEXT, IN `pass_word` TEXT) NOT DETERMINISTIC NO SQL 
-SQL SECURITY DEFINER SELECT * FROM admin WHERE LOWER(username) = LOWER(user_name) AND `password` = pass_word$$
-
 DROP PROCEDURE IF EXISTS `upsGetPicture`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `upsGetPicture` ()  NO SQL
 SELECT *
-FROM pictures$$
+FROM pictures
+WHERE gallery.GalIsDel = FALSE
+ORDER BY gallery.GalRate$$
 
 DROP PROCEDURE IF EXISTS `uspAddActivity`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspAddActivity` (IN `eveID` INT, IN `actTitle` TEXT, IN `actDesc` TEXT)  NO SQL
@@ -56,19 +54,6 @@ INSERT INTO ticket(`TicPriceNormalPass`,`TicPriceWeekendPass`, `TicDescription`,
 VALUES (ticOnePrice, ticTwoPrice,ticDesc,
         (SELECT LAST_INSERT_ID() ));
 END$$
-
-DROP PROCEDURE IF EXISTS `uspPGNvendors`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `uspPGNvendors`(IN `off_set` INT)
-    NO SQL
-SELECT * 
-FROM vendor
-LIMIT off_set, 4$$
-
-DROP PROCEDURE IF EXISTS `uspCountVendors`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `uspCountVendors`()
-    NO SQL
-SELECT COUNT(*)
-FROM vendor$$
 
 DROP PROCEDURE IF EXISTS `uspAddPicture`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspAddPicture` (IN `galPic` LONGBLOB, IN `galDate` YEAR(4), IN `galDescription` VARCHAR(100))  NO SQL
@@ -89,6 +74,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `uspAllEvents` ()  NO SQL
 SELECT *
 FROM event$$
 
+DROP PROCEDURE IF EXISTS `uspCountVendors`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspCountVendors` ()  NO SQL
+SELECT COUNT(*)
+FROM vendor$$
+
 DROP PROCEDURE IF EXISTS `uspCurrentActivities`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspCurrentActivities` ()  NO SQL
 SELECT * 
@@ -97,6 +87,19 @@ WHERE EveID = (SELECT EveID
 FROM event
 GROUP BY EveID
 HAVING MAX(EveStartDate) = MAX(EveStartDate))$$
+
+DROP PROCEDURE IF EXISTS `uspDeletePic`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspDeletePic` (IN `galID` INT)  NO SQL
+UPDATE gallery
+SET GalIsDel = True
+WHERE gallery.GalID = galID$$
+
+DROP PROCEDURE IF EXISTS `uspDetermineEvent`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspDetermineEvent` ()  NO SQL
+SELECT EveID 
+FROM event
+GROUP BY EveID
+HAVING MAX(EveStartDate) = MAX(EveStartDate)$$
 
 DROP PROCEDURE IF EXISTS `uspEditActivity`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspEditActivity` (IN `eveID` INT, IN `actTitle` TEXT, IN `actDesc` TEXT, IN `eveactID` INT)  NO SQL
@@ -114,18 +117,17 @@ UPDATE `ticket` SET TicPriceNormalPass=ticOnePrice,TicPriceWeekendPass=ticTwoPri
 WHERE `EveID`=eveID ;
 END$$
 
+DROP PROCEDURE IF EXISTS `uspEditPicture`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspEditPicture` (IN `galID` INT, IN `galDate` YEAR(4), IN `galDescription` VARCHAR(500), IN `galRate` INT(10))  NO SQL
+UPDATE gallery
+SET gallery.GalDate = galDate , gallery.GalDescrip = galDescription ,gallery.GalRate = galRate
+WHERE gallery.GalID = galID$$
+
 DROP PROCEDURE IF EXISTS `uspEditSponsor`$$
 CREATE DEFINER=`Anathi`@`%` PROCEDURE `uspEditSponsor` (IN `spoid` INT, IN `spoName` VARCHAR(100), IN `spoWebsite` VARCHAR(500), IN `spoPic` LONGBLOB)  NO SQL
 UPDATE sponsor
 SET SpoName = spoName , SpoWebsite = spoWebsite , SpoPicture = spoPic
 WHERE sponsor.SpoID = spoid$$
-
-DROP PROCEDURE IF EXISTS `uspValidateDate`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `uspValidateDate`(IN `start_dte` DATE, IN `end_dte` DATE)
-    NO SQL
-SELECT EveID
-FROM event
-WHERE EveStartDate = start_dte AND EveEndDate = end_dte$$
 
 DROP PROCEDURE IF EXISTS `uspEvent`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspEvent` (IN `eveID` INT)  NO SQL
@@ -167,7 +169,15 @@ DROP PROCEDURE IF EXISTS `uspGetGalYears`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetGalYears` ()  NO SQL
 SELECT gallery.GalDate AS 'Year', COUNT(GalDate) AS 'NumOfPics'
 FROM gallery
+WHERE gallery.GalIsDel = FALSE
 GROUP BY gallery.GalDate$$
+
+DROP PROCEDURE IF EXISTS `uspGetPicByDesc`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetPicByDesc` (IN `galID` INT)  NO SQL
+SELECT *
+FROM gallery
+WHERE gallery.GalID = galID
+AND gallery.GalIsDel = FALSE$$
 
 DROP PROCEDURE IF EXISTS `uspGetPicture`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetPicture` ()  SELECT *
@@ -203,7 +213,19 @@ DROP PROCEDURE IF EXISTS `uspGetYearPics`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspGetYearPics` (IN `galYear` YEAR(4))  NO SQL
 SELECT *
 FROM gallery
-WHERE gallery.GalDate = galYear$$
+WHERE gallery.GalDate = galYear
+AND gallery.GalIsDel = FALSE
+ORDER BY gallery.GalRate DESC$$
+
+DROP PROCEDURE IF EXISTS `uspLogin`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspLogin` (IN `user_name` TEXT, IN `pass_word` TEXT)  NO SQL
+SELECT * FROM admin WHERE LOWER(username) = LOWER(user_name) AND `password` = pass_word$$
+
+DROP PROCEDURE IF EXISTS `uspPGNvendors`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspPGNvendors` (IN `off_set` INT)  NO SQL
+SELECT * 
+FROM vendor
+LIMIT off_set, 4$$
 
 DROP PROCEDURE IF EXISTS `uspSponsor`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `uspSponsor` (IN `spo_ID` INT)  NO SQL
@@ -249,6 +271,12 @@ UPDATE sponsor
 SET sponsor.SpoPicture = spoPic
 WHERE sponsor.SpoID = spoID$$
 
+DROP PROCEDURE IF EXISTS `uspValidateDate`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `uspValidateDate` (IN `start_dte` DATE, IN `end_dte` DATE)  NO SQL
+SELECT EveID
+FROM event
+WHERE EveStartDate = start_dte AND EveEndDate = end_dte$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -266,12 +294,19 @@ CREATE TABLE IF NOT EXISTS `activity` (
   UNIQUE KEY `EveActID` (`EveActID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `activity`
+-- Table structure for table `admin`
 --
 
-INSERT INTO `activity` (`EveID`, `EveActID`, `Title`, `Descr`) VALUES
-(8, 2, 'Bayworld Entertainment', 'Part of their \"giving back to the block campaign\" Bayworld will be supplying us with their fanciest material and handy craftmanship. \r\n\r\nThey promised to offer everyone free entrance tickets and also they promised to bring to the venue a full ancient set of Dinasours remains. ');
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `username` text NOT NULL,
+  `password` text NOT NULL,
+  `adminID` int(11) NOT NULL AUTO_INCREMENT,
+  UNIQUE KEY `adminID` (`adminID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -309,13 +344,6 @@ CREATE TABLE IF NOT EXISTS `event` (
   PRIMARY KEY (`EveID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `event`
---
-
-INSERT INTO `event` (`EveID`, `EveName`, `EveStartDate`, `EveAddress`, `EveDescription`, `EveEndDate`) VALUES
-(8, 'GEEK1803', '2018-08-23', '340 Rose-Etta Street, Pretoria West, Pretoria, South Africa', 'Kuzoba Fire and kuzoba lit!!!            \r\n        ', '2018-08-25');
-
 -- --------------------------------------------------------
 
 --
@@ -341,9 +369,11 @@ CREATE TABLE IF NOT EXISTS `gallery` (
   `GalDate` year(4) DEFAULT NULL,
   `GalDescrip` varchar(100) DEFAULT NULL,
   `GalTime` time(6) DEFAULT NULL,
+  `GalRate` int(11) DEFAULT '1',
+  `GalIsDel` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`GalID`),
   UNIQUE KEY `GalTime` (`GalTime`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -411,13 +441,6 @@ CREATE TABLE IF NOT EXISTS `ticket` (
   PRIMARY KEY (`TicID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `ticket`
---
-
-INSERT INTO `ticket` (`TicID`, `TicPriceWeekendPass`, `TicDescription`, `TicType`, `TicPriceNormalPass`, `TicPriceSpecialPass`, `EveID`) VALUES
-(2, 60, 'Tickets will be sold at the venue on the day of the event           \r\n        ', NULL, 45, NULL, 8);
-
 -- --------------------------------------------------------
 
 --
@@ -430,19 +453,6 @@ CREATE TABLE IF NOT EXISTS `ticket_type` (
   `TicTypName` varchar(50) NOT NULL,
   PRIMARY KEY (`TicTypID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `admin`
---
-DROP TABLE IF EXISTS `admin`;
-CREATE TABLE IF NOT EXISTS `conect`.`admin` 
-( `username` TEXT NOT NULL , 
-`password` TEXT NOT NULL , 
-`adminID` INT NOT NULL AUTO_INCREMENT ,
- UNIQUE (`adminID`)
-) ENGINE = InnoDB;
 
 -- --------------------------------------------------------
 
@@ -463,7 +473,7 @@ CREATE TABLE IF NOT EXISTS `vendor` (
   `VenPicture` longblob,
   PRIMARY KEY (`VenID`),
   UNIQUE KEY `VenName` (`VenName`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
