@@ -1,0 +1,16 @@
+Issues: 
+
+        320x480 screens:
+        Kids playing background image doesn't fill entire height therefore not containing clock properly... 
+        pagination thing is not responsive as buttons end up flying all over the place
+
+Improvements: 
+        
+           => remove the timeline stuff from clashing with the main page stuff for both desktop and mobile.
+           => re-attempt midilizing pagination buttons
+           => use margins and decorate them with a greyish color to introduce new section
+           => link in about us page, probably even re-create it
+           => re-create gallery page and optimize gallery operations via database.. Delete hidden photos if was viewed 
+              before
+
+Fixes: 
